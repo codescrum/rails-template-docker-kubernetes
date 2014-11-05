@@ -1,0 +1,11 @@
+%h2= t(".sign_in")
+= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+  .form-inputs
+    = f.input :email, label: false, required: false, autofocus: true, placeholder: t(".your_email")
+    = f.input :password, label: false, required: false, placeholder: t(".your_password")
+    = f.input :remember_me, label: false, inline_label: t(".remember_me"), as: :boolean if devise_mapping.rememberable?
+  .form-actions
+    = f.button :submit, t(".sign_in"), class: 'btn-block'
+.text-right
+  %br
+  = render "devise/shared/links"

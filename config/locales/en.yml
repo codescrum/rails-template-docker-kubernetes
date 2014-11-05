@@ -1,0 +1,27 @@
+en:
+  devise:
+    sessions:
+      sign_in_form:
+        remember_me: Yes, remember me
+        sign_in: Sign In
+        your_email: Your email
+        your_password: Your password
+    shared:
+      links:
+        didnt_receive_confirmation_in: Didn't receive confirmation instructions?
+        didnt_receive_unlock_instruct: Didn't receive unlock instructions?
+        forgot_your_password: Forgot your password?
+        log_in: Log in
+        sign_in_with_provider: "Sign in with %{provider}"
+        sign_up: Sign up
+  hello: Hello world
+  welcome:
+    index:
+      all_rights_reserved: All rights reserved
+      generic: Generic
+      contact: Contact
+      demo_app_description: This is a demo application.
+      demo_application: Foo Application
+      home: Home
+      about_us: About Us
+      sign_in: Sign In

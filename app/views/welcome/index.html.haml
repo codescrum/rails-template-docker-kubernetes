@@ -1,0 +1,24 @@
+.site-wrapper
+  .site-wrapper-inner
+    .cover-container
+      .masthead.clearfix
+        .inner
+          %h3.masthead-brand= t(".generic")
+          %ul.nav.masthead-nav
+            %li.active
+              %a{:href => "#"}= t(".home")
+            %li
+              %a{:href => "#"}= t(".about_us")
+            %li
+              %a{:href => "#"}= t(".contact")
+      .inner.cover
+        %h1.cover-heading= t(".demo_application")
+        %p.lead= t(".demo_app_description")
+        %p.lead
+          %a.btn.btn-lg.btn-primary{:href => new_user_session_path}= t(".sign_in")
+      .mastfoot
+        .inner
+          %p
+            = t(".all_rights_reserved")
+            = succeed "," do
+              %a{:href => "#"}= t(".generic")
