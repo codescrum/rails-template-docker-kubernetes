@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'welcome#index'
 
+  get 'ping' => 'welcome#ping'
+
   get 'dashboard' => 'dashboard#index'
 
   # Example of regular route:
