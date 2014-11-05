@@ -1,4 +1,22 @@
 GIT
+  remote: git://github.com/jkrmr/jazz_hands.git
+  revision: dbb97a2f5782db30c74819fc9699fad84ab8078f
+  branch: byebug_and_updated_pry
+  specs:
+    jazz_hands (0.5.2)
+      awesome_print (~> 1.2)
+      hirb (~> 0.7.1)
+      pry (~> 0.10.1)
+      pry-byebug (>= 2.0.0)
+      pry-coolline (>= 0.2.4)
+      pry-doc (~> 0.4.6)
+      pry-git (~> 0.2.3)
+      pry-rails (~> 0.3.2)
+      pry-remote (>= 0.1.7)
+      pry-stack_explorer (~> 0.4.9)
+      railties (>= 3.0, < 5.0)
+
+GIT
   remote: git://github.com/plataformatec/simple_form.git
   revision: 517a0fcc12937d238fba3192a1b12c83dda9301a
   branch: master
@@ -69,6 +87,10 @@ GEM
       debug_inspector (>= 0.0.1)
     bson (2.3.0)
     builder (3.2.2)
+    byebug (3.5.1)
+      columnize (~> 0.8)
+      debugger-linecache (~> 1.2)
+      slop (~> 3.6)
     cancancan (1.9.2)
     capybara (2.4.3)
       mime-types (>= 1.16)
@@ -94,12 +116,7 @@ GEM
       unicode_utils (~> 1.4)
     database_cleaner (1.3.0)
     debug_inspector (0.0.2)
-    debugger (1.6.8)
-      columnize (>= 0.3.1)
-      debugger-linecache (~> 1.2.0)
-      debugger-ruby_core_source (~> 1.3.5)
     debugger-linecache (1.2.0)
-    debugger-ruby_core_source (1.3.5)
     devise (3.3.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -107,7 +124,7 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
-    diffy (3.0.6)
+    diffy (3.0.7)
     erubis (2.7.0)
     execjs (2.2.1)
     fast-stemmer (1.0.2)
@@ -124,18 +141,6 @@ GEM
     hike (1.2.3)
     hirb (0.7.2)
     i18n (0.6.11)
-    jazz_hands (0.5.2)
-      awesome_print (~> 1.2)
-      coolline (>= 0.4.2)
-      hirb (~> 0.7.1)
-      pry (~> 0.9.12)
-      pry-debugger (~> 0.2.2)
-      pry-doc (~> 0.4.6)
-      pry-git (~> 0.2.3)
-      pry-rails (~> 0.3.2)
-      pry-remote (>= 0.1.7)
-      pry-stack_explorer (~> 0.4.9)
-      railties (>= 3.0, < 5.0)
     jbuilder (2.1.3)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -179,13 +184,15 @@ GEM
     optionable (0.2.0)
     origin (2.1.1)
     orm_adapter (0.5.0)
-    pry (0.9.12.6)
-      coderay (~> 1.0)
-      method_source (~> 0.8)
+    pry (0.10.1)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
       slop (~> 3.4)
-    pry-debugger (0.2.3)
-      debugger (~> 1.3)
-      pry (>= 0.9.10, < 0.11.0)
+    pry-byebug (2.0.0)
+      byebug (~> 3.4)
+      pry (~> 0.10)
+    pry-coolline (0.2.5)
+      coolline (~> 0.5)
     pry-doc (0.4.6)
       pry (>= 0.9)
       yard (>= 0.8)
@@ -294,7 +301,7 @@ GEM
       will_paginate (~> 3.0)
     xpath (2.0.0)
       nokogiri (~> 1.3)
-    yard (0.8.7.4)
+    yard (0.8.7.6)
 
 PLATFORMS
   ruby
@@ -309,7 +316,7 @@ DEPENDENCIES
   devise
   haml
   haml-rails
-  jazz_hands
+  jazz_hands!
   jbuilder (~> 2.0)
   jquery-rails
   launchy

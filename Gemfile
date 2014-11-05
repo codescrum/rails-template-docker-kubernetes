@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.1'
+ruby '2.1.3'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'
 # Use SCSS for stylesheets
@@ -43,7 +43,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'jazz_hands'#, :git => 'https://github.com/xcskier56/jazz_hands.git'
+  gem 'jazz_hands', github: 'jkrmr/jazz_hands', branch: 'byebug_and_updated_pry'
 end
 
 group :test do
