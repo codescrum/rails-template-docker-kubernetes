@@ -47,6 +47,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'factory_girl_rails'
   gem 'rspec-rails', '~> 3.0.0.beta2'
   gem 'capybara'
   gem 'capybara-webkit'
