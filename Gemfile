@@ -43,12 +43,12 @@ group :development do
 end
 
 group :development, :test do
-  gem 'jazz_hands', github: 'jkrmr/jazz_hands', branch: 'byebug_and_updated_pry'
+  gem 'jazz_hands', github: 'jkrmr/jazz_hands'
 end
 
 group :test do
   gem 'factory_girl_rails'
-  gem 'rspec-rails', '~> 3.0.0.beta2'
+  gem 'rspec-rails', '~> 3.1.0'
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'launchy'
