@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-ruby '2.1.3'
+ruby '2.1.5'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.6'
+gem 'rails', '4.1.8'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -40,6 +40,11 @@ group :development do
   gem 'haml-rails' # only in dev, because haml-rails adds the generators
   gem 'quiet_assets'
   gem 'rails_layout'
+  # gems for inspecting code qualitty
+  gem 'i18n-tasks', '~> 0.7.8'
+  gem 'inch', require: false
+  gem 'rubocop', require: false
+  gem 'rubycritic', require: false
 end
 
 group :development, :test do
@@ -47,12 +52,15 @@ group :development, :test do
 end
 
 group :test do
+  gem 'simplecov'
   gem 'factory_girl_rails'
   gem 'rspec-rails', '~> 3.1.0'
+  gem 'rspec-support', '~> 3.1.0'
   gem 'capybara'
-  gem 'capybara-webkit'
   gem 'launchy'
   gem 'shoulda-matchers'
+  gem 'capybara-webkit'
+  gem 'capybara-screenshot'
   gem 'database_cleaner'
   gem 'mongoid-rspec'
   gem 'mongoid-rspec-callbacks'
