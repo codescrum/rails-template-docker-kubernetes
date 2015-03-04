@@ -21,6 +21,11 @@ Features:
  - RSpec with basic config 3.2.1
  - Jazz-Hands (stable version)
 
+Some extra configs
+
+ - Lib folder is autoloaded by rails
+ - App only includes current helper (by specific controller) and application helper on view layer 
+
 Gems for inspecting code quality
 
  - i18n-tasks
