@@ -60,6 +60,13 @@ RSpec.configure do |config|
 
   # Factory Girl methods
   config.include FactoryGirl::Syntax::Methods
+  # Kind of hack for zeus
+  # You can also use commands below
+  #FactoryGirl.definition_file_paths = [File.expand_path('../factories', __FILE__)]
+  #FactoryGirl.find_definitions
+  config.before(:all) do
+    FactoryGirl.reload
+  end
 
   # Include devise test helpers in controller specs
   config.include Devise::TestHelpers, :type => :controller

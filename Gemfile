@@ -52,6 +52,9 @@ group :development, :test do
 end
 
 group :test do
+  # [ERROR] The 'truncation' strategy does not exist [...] Available strategies: truncation
+  # As a temporary workaround, including mongoid-tree in your Gemfile solves it for now.
+  gem 'mongoid-tree', :require => 'mongoid/tree'
   gem 'simplecov'
   gem 'factory_girl_rails'
   gem 'rspec-rails', '~> 3.2.1'
