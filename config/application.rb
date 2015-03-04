@@ -29,6 +29,10 @@ module RailsTemplate
 
     # Auto-loading lib files
     config.autoload_paths << Rails.root.join('lib')
+
+    # Avoids that each controller loads all existent helpers, this could be a problem
+    # when you try to segment your helper methods
+    config.action_controller.include_all_helpers = false
   end
 end
 
