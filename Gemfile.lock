@@ -242,6 +242,8 @@ GEM
       mongoid (>= 3.0.1)
       rake
       rspec (>= 2.9)
+    mongoid-tree (2.0.0)
+      mongoid (>= 4.0, <= 5.0)
     mongoid_search (0.3.2)
       fast-stemmer (~> 1.0.0)
       mongoid (>= 3.0.0)
@@ -470,6 +472,7 @@ DEPENDENCIES
   mongoid!
   mongoid-rspec
   mongoid-rspec-callbacks
+  mongoid-tree
   mongoid_search
   newrelic_rpm
   quiet_assets

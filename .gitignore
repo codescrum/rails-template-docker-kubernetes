@@ -60,5 +60,8 @@ public/uploads
 .bundle/
 .jhw-cache/
 
+# Simplecov
+coverage/
+
 ## UNIX TEMP FILES
 *~

@@ -1,5 +1,19 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
+
+# specs without zeus (as long as zeus is not running)
+def zeus_running?
+  File.exists? '.zeus.sock'
+end
+
+unless zeus_running?
+  require 'simplecov'
+  formatters = [SimpleCov::Formatter::HTMLFormatter]
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[*formatters]
+  SimpleCov.command_name 'rspec'
+  SimpleCov.start 'rails'
+end
+
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'database_cleaner'
