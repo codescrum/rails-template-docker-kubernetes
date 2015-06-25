@@ -45,6 +45,7 @@ group :development do
   gem 'inch', require: false
   gem 'rubocop', require: false
   gem 'rubycritic', require: false
+  gem 'brakeman', require: false
 end
 
 group :development, :test do
