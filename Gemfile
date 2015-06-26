@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.2.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.0'
+gem 'rails', '4.2.2'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.1'
 # Use Uglifier as compressor for JavaScript assets
@@ -29,7 +29,7 @@ gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootst
 gem 'simple_form'
 
 gem 'awesome_print', git: 'https://github.com/michaeldv/awesome_print'
-gem 'mongoid', git: 'https://github.com/mongoid/mongoid.git'
+gem "mongoid", "~> 4.0.0"
 gem 'devise'
 gem 'mongoid_search'
 gem 'will_paginate_mongoid'
@@ -45,7 +45,7 @@ group :development do
   gem 'inch', require: false
   gem 'rubocop', require: false
   gem 'rubycritic', require: false
-  gem 'brakeman', require: false
+  gem 'brakeman-min', require: false
 end
 
 group :development, :test do
@@ -67,7 +67,6 @@ group :test do
   gem 'capybara-screenshot'
   gem 'database_cleaner'
   gem 'mongoid-rspec'
-  gem 'mongoid-rspec-callbacks'
 end
 
 group :production do
