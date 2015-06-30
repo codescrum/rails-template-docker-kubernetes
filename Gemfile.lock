@@ -157,6 +157,11 @@ GEM
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
     fast-stemmer (1.0.2)
+    fast_stack (0.1.0)
+      rake
+      rake-compiler
+    flamegraph (0.1.0)
+      fast_stack
     flay (2.4.0)
       ruby_parser (~> 3.0)
       sexp_processor (~> 4.0)
@@ -323,6 +328,8 @@ GEM
     rainbow (2.0.0)
     raindrops (0.14.0)
     rake (10.4.2)
+    rake-compiler (0.9.5)
+      rake
     rdoc (4.2.0)
     reek (1.6.5)
       parser (~> 2.2.0.pre.7)
@@ -461,6 +468,7 @@ DEPENDENCIES
   database_cleaner
   devise
   factory_girl_rails
+  flamegraph
   haml
   haml-rails
   i18n-tasks (~> 0.7.12)

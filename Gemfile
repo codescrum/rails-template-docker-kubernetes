@@ -42,6 +42,7 @@ group :development do
   gem 'rails_layout'
   gem 'bullet'
   gem 'rack-mini-profiler'
+  gem 'flamegraph'
   # gems for inspecting code qualitty
   gem 'i18n-tasks', '~> 0.7.12'
   gem 'inch', require: false
