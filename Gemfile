@@ -41,6 +41,7 @@ group :development do
   gem 'quiet_assets'
   gem 'rails_layout'
   gem 'bullet'
+  gem 'rack-mini-profiler'
   # gems for inspecting code qualitty
   gem 'i18n-tasks', '~> 0.7.12'
   gem 'inch', require: false
