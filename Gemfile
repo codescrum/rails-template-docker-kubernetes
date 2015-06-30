@@ -34,6 +34,7 @@ gem 'devise'
 gem 'mongoid_search'
 gem 'will_paginate_mongoid'
 gem 'cancancan', '~> 1.10.1'
+gem 'secure_headers'
 
 
 group :development do
@@ -41,6 +42,9 @@ group :development do
   gem 'quiet_assets'
   gem 'rails_layout'
   gem 'bullet'
+  # For supporting flamegraph without errors
+  # see here: https://github.com/SamSaffron/flamegraph/blob/master/lib/flamegraph.rb#L5
+  gem 'stackprof'
   gem 'rack-mini-profiler'
   gem 'flamegraph'
   # gems for inspecting code qualitty
