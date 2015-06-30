@@ -91,6 +91,9 @@ GEM
       ruby_parser (~> 3.7.0)
     bson (3.1.1)
     builder (3.2.2)
+    bullet (4.14.7)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.9.0)
     byebug (3.5.1)
       columnize (~> 0.8)
       debugger-linecache (~> 1.2)
@@ -417,6 +420,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    uniform_notifier (1.9.0)
     unparser (0.2.4)
       abstract_type (~> 0.0.7)
       adamantium (~> 0.2.0)
@@ -446,6 +450,7 @@ PLATFORMS
 DEPENDENCIES
   awesome_print!
   brakeman-min
+  bullet
   cancancan (~> 1.10.1)
   capybara
   capybara-screenshot
