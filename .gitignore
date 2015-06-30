@@ -60,6 +60,13 @@ public/uploads
 .bundle/
 .jhw-cache/
 
+# Secrets
+config/secrets.yml
+.env
+.env.test
+.env.local
+.env.staging
+
 # Simplecov
 coverage/
 

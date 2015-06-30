@@ -53,6 +53,11 @@ end
 
 group :development, :test do
   gem 'jazz_hands', github: 'jkrmr/jazz_hands'
+  # If you use gems that require environment variables to be set before they are loaded,
+  # then list dotenv-rails in the Gemfile before those other gems and require dotenv/rails-now.
+  # gem 'dotenv-rails', :require => 'dotenv/rails-now'
+  # gem 'gem-that-requires-env-variables'
+  gem 'dotenv-rails'
 end
 
 group :test do
