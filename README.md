@@ -64,8 +64,8 @@ Is an added layer of security that helps to detect and mitigate certain types of
 
 see more info here:
 https://goo.gl/u23dit
-https://goo.gl/wHC9C5
-https://goo.gl/Z8UvAz
+| https://goo.gl/wHC9C5
+| https://goo.gl/Z8UvAz
 
 ##### Public Key Pinning
 The Public Key Pinning Extension for HTTP (HPKP) is a security feature that tells a web client to associate a specific cryptographic public key with a certain web server to prevent MITM attacks with forged certificates.
@@ -85,7 +85,7 @@ The Public Key Pinning Extension for HTTP (HPKP) is a security feature that tell
 
 see more info here:
 https://goo.gl/yrx3ex
-http://goo.gl/zFnaaW
+| http://goo.gl/zFnaaW
 ### CONFIG
 We are using a combined strategy between [secrets](http://guides.rubyonrails.org/4_1_release_notes.html#config-secrets-yml) and [dotenv](https://github.com/bkeepers/dotenv) approaches, you can use a similar approach like Figaro, in fact after almost two years there is still a little discussion about what is the better approach for managing your settings and sensitive information (there is an interesting post from Figaro creator [here](http://www.collectiveidea.com/blog/archives/2013/12/18/the-marriage-of-figaro-and-rails/)).
 
