@@ -15,6 +15,7 @@ unless zeus_running?
 end
 
 require File.expand_path("../../config/environment", __FILE__)
+require 'spec_helper'
 require 'rspec/rails'
 require 'database_cleaner'
 require 'capybara/rspec'
@@ -83,7 +84,7 @@ RSpec.configure do |config|
   end
 
   # Include devise test helpers in controller specs
-  config.include Devise::TestHelpers, :type => :controller
+  config.include Devise::TestHelpers, type: :controller
 
   # Include mongoid matches in model specs
   config.include Mongoid::Matchers, type: :model
