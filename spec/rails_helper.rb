@@ -15,7 +15,6 @@ unless zeus_running?
 end
 
 require File.expand_path("../../config/environment", __FILE__)
-require 'spec_helper'
 require 'rspec/rails'
 require 'database_cleaner'
 require 'capybara/rspec'
@@ -37,6 +36,17 @@ Capybara.register_driver :rack_test do |app|
 end
 
 RSpec.configure do |config|
+  # Factory Girl methods
+  config.include FactoryGirl::Syntax::Methods
+
+  # Include devise test helpers in controller specs
+  config.include Devise::TestHelpers, type: :controller
+
+  # Include mongoid matches in model specs
+  config.include Mongoid::Matchers, type: :model
+
+  config.include Capybara::DSL
+
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
@@ -52,6 +62,25 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = 'random'
+
+
+  # RSpec Rails can automatically mix in different behaviours to your tests
+  # based on their file location, for example enabling you to call `get` and
+  # `post` in specs under `spec/controllers`.
+  #
+  # You can disable this behaviour by removing the line below, and instead
+  # explicitly tag your specs with their type, e.g.:
+  #
+  #     RSpec.describe UsersController, :type => :controller do
+  #       # ...
+  #     end
+  #
+  # The different available types are documented in the features, such as in
+  # https://relishapp.com/rspec/rspec-rails/docs
+  config.infer_spec_type_from_file_location!
+
+  # Exclude options
+  config.filter_run_excluding :exclude => true
 
   # DatabaseCleaner config
   static_info_tables = %w[]
@@ -70,11 +99,6 @@ RSpec.configure do |config|
     DatabaseCleaner.clean unless example.metadata[:keep_db]
   end
 
-  # Exclude options
-  config.filter_run_excluding :exclude => true
-
-  # Factory Girl methods
-  config.include FactoryGirl::Syntax::Methods
   # Kind of hack for zeus
   # You can also use commands below
   #FactoryGirl.definition_file_paths = [File.expand_path('../factories', __FILE__)]
@@ -83,26 +107,4 @@ RSpec.configure do |config|
     FactoryGirl.reload
   end
 
-  # Include devise test helpers in controller specs
-  config.include Devise::TestHelpers, type: :controller
-
-  # Include mongoid matches in model specs
-  config.include Mongoid::Matchers, type: :model
-
-  config.include Capybara::DSL
-
-  # RSpec Rails can automatically mix in different behaviours to your tests
-  # based on their file location, for example enabling you to call `get` and
-  # `post` in specs under `spec/controllers`.
-  #
-  # You can disable this behaviour by removing the line below, and instead
-  # explicitly tag your specs with their type, e.g.:
-  #
-  #     RSpec.describe UsersController, :type => :controller do
-  #       # ...
-  #     end
-  #
-  # The different available types are documented in the features, such as in
-  # https://relishapp.com/rspec/rspec-rails/docs
-  config.infer_spec_type_from_file_location!
 end
