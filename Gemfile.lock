@@ -513,6 +513,7 @@ DEPENDENCIES
   shoulda-matchers
   simple_form
   simplecov
+  simplecov-html
   stackprof
   therubyracer
   turbolinks
