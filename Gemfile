@@ -75,7 +75,7 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'shoulda-matchers'
-  gem 'capybara-webkit'
+  gem 'poltergeist'
   gem 'capybara-screenshot'
   gem 'database_cleaner'
   gem 'mongoid-rspec'

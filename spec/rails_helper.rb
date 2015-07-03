@@ -18,6 +18,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'database_cleaner'
 require 'capybara/rspec'
+require 'capybara/poltergeist'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -28,12 +29,26 @@ require 'capybara/rspec'
 # option on the command line or in ~/.rspec, .rspec or `.rspec-local`.
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
+#
 # Configure Capybara
+#
 Capybara.default_host = "http://127.0.0.1"
-Capybara.javascript_driver = :webkit
-Capybara.register_driver :rack_test do |app|
-  Capybara::RackTest::Driver.new(app, :headers => { 'HTTP_USER_AGENT' => 'Capybara' })
+
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, js_errors: true, timeout: 30, logger: true, window_size: [1366, 768])
 end
+
+Capybara.javascript_driver = :poltergeist
+
+#
+# For Inspecting
+#
+# Capybara.register_driver :poltergeist_debug do |app|
+#   Capybara::Poltergeist::Driver.new(app, :nspector: true, js_errors: true, timeout: 30, logger: true, window_size: [1366, 768])
+# end
+
+# Capybara.javascript_driver = :poltergeist_debug
+
 
 RSpec.configure do |config|
   # Factory Girl methods
