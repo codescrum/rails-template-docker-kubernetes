@@ -35,7 +35,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 Capybara.default_host = "http://127.0.0.1"
 
 Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, js_errors: true, timeout: 30, logger: true, window_size: [1366, 768])
+  Capybara::Poltergeist::Driver.new(app, js_errors: true, timeout: 30, window_size: [1366, 768])
 end
 
 Capybara.javascript_driver = :poltergeist
