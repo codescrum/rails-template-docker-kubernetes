@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'Welcome Page' do
-  scenario 'Do the thing', js: true do
+  scenario 'do the thing', :js do
     visit '/'
     # Just testing the Poltergeist benefits
     page.save_screenshot File.join(Rails.root, 'tmp', 'capybara', 'test.png')
@@ -10,4 +10,12 @@ feature 'Welcome Page' do
     element.native.trigger :click
     expect(page).to have_content 'Sign In'
   end
+
+  scenario 'do the ping', :vcr do
+    expect(make_http_request).to be_eql 'pong!'
+  end
+end
+
+def make_http_request
+  Net::HTTP.get_response('localhost', '/ping', 3000).body
 end

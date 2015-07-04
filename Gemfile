@@ -70,6 +70,8 @@ group :test do
   gem 'mongoid-tree', :require => 'mongoid/tree'
   gem 'simplecov'
   gem 'simplecov-html'
+  gem 'vcr'
+  gem 'webmock'
   gem 'factory_girl_rails'
   gem 'rspec-rails', '~> 3.2.1'
   gem 'rspec-support', '~> 3.2.2'

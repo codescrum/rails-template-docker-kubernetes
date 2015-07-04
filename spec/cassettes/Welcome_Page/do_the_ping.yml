@@ -1,0 +1,65 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3000/ping
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      X-Frame-Options:
+      - DENY
+      Content-Security-Policy:
+      - 'default-src https: ''self'' ''unsafe-inline'' ''unsafe-eval''; connect-src
+        https: ''self'' ''unsafe-inline'' ''unsafe-eval''; font-src https: ''self''
+        ''unsafe-inline'' ''unsafe-eval''; frame-src https: http:.twimg.com http://itunes.apple.com;
+        img-src https: data:; media-src https: ''self'' ''unsafe-inline'' ''unsafe-eval'';
+        object-src https: ''self'' ''unsafe-inline'' ''unsafe-eval''; script-src https:
+        ''self'' ''unsafe-inline'' ''unsafe-eval''; style-src https: ''self'' ''unsafe-inline''
+        ''unsafe-eval''; report-uri https://report-uri.io/report/codescrum?enforce=true&app_name=rails_foo;'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Content-Type:
+      - text/html; charset=utf-8
+      Cache-Control:
+      - no-store, must-revalidate, private, max-age=0
+      X-Request-Id:
+      - dcc38c85-757a-47e1-a02e-d73692a9f412
+      X-Runtime:
+      - '0.043675'
+      X-Miniprofiler-Ids:
+      - '["ehjg2v2byzkwvuzrgnbt","2b9wrs5nr5ookoaasg66"]'
+      Content-Length:
+      - '5'
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.2.0/2014-12-25)
+      Date:
+      - Fri, 03 Jul 2015 22:18:00 GMT
+      Connection:
+      - Keep-Alive
+      Set-Cookie:
+      - __profilin=p%3Dt; path=/
+      - __profilin=p%3Dt; path=/
+    body:
+      encoding: UTF-8
+      string: pong!
+    http_version: 
+  recorded_at: Fri, 03 Jul 2015 22:18:00 GMT
+recorded_with: VCR 2.9.3

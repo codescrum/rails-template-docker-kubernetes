@@ -17,7 +17,7 @@ unless zeus_running?
     add_group "Helpers", "app/helpers"
     add_group "Services", "app/services"
     add_group "Mailers", "app/mailers"
-    # You can regroup your files by their properties (for example 'lines')
+    # You can regroup your files by their properties (for example 'lines of code')
     add_group "Long files" do |src_file|
       src_file.lines.count > 100
     end
@@ -29,6 +29,15 @@ require 'rspec/rails'
 require 'database_cleaner'
 require 'capybara/rspec'
 require 'capybara/poltergeist'
+require 'vcr'
+
+VCR.configure do |c|
+  c.allow_http_connections_when_no_cassette = true
+  c.cassette_library_dir = File.join(Rails.root, 'spec', 'cassettes')
+  c.hook_into :webmock
+  c.debug_logger = File.open(File.join(Rails.root, 'log', 'vcr.log'), 'w')
+  c.configure_rspec_metadata!
+end
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -122,6 +131,11 @@ RSpec.configure do |config|
 
   config.before(:example) do |example|
     DatabaseCleaner.clean unless example.metadata[:keep_db]
+  end
+
+  config.around(:each, :vcr) do |example|
+    name = example.metadata[:full_description].split(/\s+/, 2).join("/").underscore.gsub(/[^\w\/]+/, "_")
+    VCR.use_cassette(name) { example.call }
   end
 
   # Kind of hack for zeus
