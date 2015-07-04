@@ -72,6 +72,7 @@ group :test do
   gem 'simplecov-html'
   gem 'vcr'
   gem 'webmock'
+  gem 'faker'
   gem 'factory_girl_rails'
   gem 'rspec-rails', '~> 3.2.1'
   gem 'rspec-support', '~> 3.2.2'
