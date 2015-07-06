@@ -5,5 +5,6 @@ namespace :code_quality do
   task :inspect do
     `rubycritic app`
     `rubocop --format html -o tmp/rubocop.html`
+    `brakeman -o tmp/brakeman.html`
   end
 end
