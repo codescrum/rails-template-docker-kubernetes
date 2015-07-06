@@ -1,3 +1,4 @@
+# Class used for describing all behaviour associated with user abilities
 class Ability
   include CanCan::Ability
 

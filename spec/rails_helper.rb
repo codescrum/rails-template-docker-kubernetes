@@ -1,9 +1,9 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-ENV["RAILS_ENV"] ||= 'test'
+ENV['RAILS_ENV'] ||= 'test'
 
 # specs without zeus (as long as zeus is not running)
 def zeus_running?
-  File.exists? '.zeus.sock'
+  File.exist? '.zeus.sock'
 end
 
 unless zeus_running?
@@ -12,19 +12,19 @@ unless zeus_running?
   SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[*formatters]
   SimpleCov.start do
     add_filter 'config/'
-    add_group "Models", "app/models"
-    add_group "Controllers", "app/controllers"
-    add_group "Helpers", "app/helpers"
-    add_group "Services", "app/services"
-    add_group "Mailers", "app/mailers"
+    add_group 'Models', 'app/models'
+    add_group 'Controllers', 'app/controllers'
+    add_group 'Helpers', 'app/helpers'
+    add_group 'Services', 'app/services'
+    add_group 'Mailers', 'app/mailers'
     # You can regroup your files by their properties (for example 'lines of code')
-    add_group "Long files" do |src_file|
+    add_group 'Long files' do |src_file|
       src_file.lines.count > 100
     end
   end
 end
 
-require File.expand_path("../../config/environment", __FILE__)
+require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 require 'database_cleaner'
 require 'capybara/rspec'
@@ -46,12 +46,12 @@ end
 # run twice. It is recommended that you do not name files matching this glob to
 # end with _spec.rb. You can configure this pattern with the --pattern
 # option on the command line or in ~/.rspec, .rspec or `.rspec-local`.
-Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 #
 # Configure Capybara
 #
-Capybara.default_host = "http://127.0.0.1"
+Capybara.default_host = 'http://127.0.0.1'
 
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, js_errors: true, timeout: 30, window_size: [1366, 768])
@@ -67,7 +67,6 @@ Capybara.javascript_driver = :poltergeist
 # end
 
 # Capybara.javascript_driver = :poltergeist_debug
-
 
 RSpec.configure do |config|
   # Factory Girl methods
@@ -97,7 +96,6 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = 'random'
 
-
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
   # `post` in specs under `spec/controllers`.
@@ -114,18 +112,18 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   # Exclude options
-  config.filter_run_excluding :exclude => true
+  config.filter_run_excluding exclude: true
 
   # DatabaseCleaner config
-  static_info_tables = %w[]
+  static_info_tables = %w()
 
   config.before(:suite) do
-    DatabaseCleaner.strategy = :truncation, {except: static_info_tables}
+    DatabaseCleaner.strategy = :truncation, { except: static_info_tables }
     DatabaseCleaner.start
     DatabaseCleaner.clean
   end
 
-  config.before(:context) do |example|
+  config.before(:context) do
     DatabaseCleaner.clean
   end
 
@@ -134,16 +132,15 @@ RSpec.configure do |config|
   end
 
   config.around(:each, :vcr) do |example|
-    name = example.metadata[:full_description].split(/\s+/, 2).join("/").underscore.gsub(/[^\w\/]+/, "_")
+    name = example.metadata[:full_description].split(/\s+/, 2).join('/').underscore.gsub(%r{/[^\w\/]+/}, '_')
     VCR.use_cassette(name) { example.call }
   end
 
   # Kind of hack for zeus
   # You can also use commands below
-  #FactoryGirl.definition_file_paths = [File.expand_path('../factories', __FILE__)]
-  #FactoryGirl.find_definitions
+  # FactoryGirl.definition_file_paths = [File.expand_path('../factories', __FILE__)]
+  # FactoryGirl.find_definitions
   config.before(:all) do
     FactoryGirl.reload
   end
-
 end

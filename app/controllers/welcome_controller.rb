@@ -1,11 +1,11 @@
+# Controller for testing purpose
 class WelcomeController < ApplicationController
   def index
   end
 
   def ping
     respond_to do |format|
-      format.html { render :text => 'pong!' }
+      format.html { render text: 'pong!' }
     end
   end
-
 end
