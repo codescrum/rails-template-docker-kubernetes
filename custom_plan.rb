@@ -11,23 +11,26 @@ class CustomPlan < Zeus::Rails
     require 'simplecov'
     formatters = [SimpleCov::Formatter::HTMLFormatter]
     SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[*formatters]
+    start_simplecov
+    # require all ruby files
+    Dir["#{Rails.root}/app/**/*.rb"].reject{ |file| file[%r{/app/controllers/concerns/}] || file[%r{/app/models/concerns/}]  }.each { |file| load file }
+    # run the tests
+    super
+  end
+
+  private
+
+  def start_simplecov
     SimpleCov.start do
-      add_filter 'config/'
-      add_filter 'spec/'
-      add_group "Models", "app/models"
-      add_group "Controllers", "app/controllers"
-      add_group "Helpers", "app/helpers"
-      add_group "Services", "app/services"
-      add_group "Mailers", "app/mailers"
+      filters = ['config/', 'spec/']
+      filters.each {|_filter| add_filter _filter}
+      groups = [["Models", "app/models"], ["Controllers", "app/controllers"], ["Helpers", "app/helpers"], ["Services", "app/services"], ["Mailers", "app/mailers"]]
+      groups.each {|group| add_group *group}
       # You can regroup your files by their properties (for example 'lines')
       add_group "Long files" do |src_file|
         src_file.lines.count > 100
       end
     end
-    # require all ruby files
-    Dir["#{Rails.root}/app/**/*.rb"].reject{ |f| f[%r{/app/controllers/concerns/}] || f[%r{/app/models/concerns/}]  }.each { |f| load f }
-    # run the tests
-    super
   end
 
 end
