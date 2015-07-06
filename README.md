@@ -155,14 +155,26 @@ We are complimented our test suite with:
 - [VCR](https://github.com/vcr/vcr) records your test suite's HTTP interactions and replay them during future test runs for fast, deterministic, accurate tests. There is an example spec in the `spec/features/welcome_spec.rb`, also you can see more info [here](https://www.relishapp.com/vcr/vcr/v/2-9-0/docs/test-frameworks/usage-with-rspec-metadata)
 - [Faker](https://github.com/stympy/faker) A library for generating fake data such as names, addresses, and phone numbers.
 - [Factory Girl](https://github.com/thoughtbot/factory_girl) factory_girl is a fixtures replacement with a straightforward definition syntax, support for multiple build strategies (saved instances, unsaved instances, attribute hashes, and stubbed objects), and support for multiple factories for the same class (user, admin_user, and so on), including factory inheritance.
+
 ### CODE QUALITY
 We have integrated four powerful gems for checking the code quality
-#### Rubocop [GITHUB REPO](https://github.com/bbatsov/rubocop)
+
+#### Rubocop ([GITHUB REPO](https://github.com/bbatsov/rubocop))
 A Ruby static code analyzer, based on the community Ruby style guide. You can execute this code inspection process by using the `$ rubocop --format html -o tmp/rubocop.html` command, it will generate a new file `tmp/rubocop.html` in which you can see your “offenses” inside your code. Also, you can find the config rubocop file in `.rubocop.yml`
-#### Rubycritic [GITHUB REPO](https://github.com/whitesmith/rubycritic)
+
+#### (Rubycritic [GITHUB REPO](https://github.com/whitesmith/rubycritic))
 RubyCritic is a gem that wraps around static analysis gems such as [Reek](https://github.com/troessner/reek), [Flay](https://github.com/seattlerb/flay) and [Flog](https://github.com/seattlerb/flog) to provide a quality report of your Ruby code. You can execute this code inspection process by using the `$ rubycritic app` command, it will generate a html file set for the code quality report, you can find this in `tmp/rubycritic/overview.html`.
-#### Inch [GITHUB REPO](https://github.com/rrrene/inch)
+
+#### Inch ([GITHUB REPO](https://github.com/rrrene/inch))
 A documentation measurement tool for Ruby, based on YARD. you can generate several documentation reports for your code documentation, execute this code inspection by using the `$ inch` command, however you can also use other options like: `$ inch stats` `$ inch lists` `$ inch suggest` for obtaining a most complete information. You can see a quick start guide [here](http://trivelop.de/inch/)
+
+#### Bullet ([GITHUB REPO](https://github.com/flyerhzm/bullet))
+Bullet helps you to kill N+1 queries and unused eager loading, it will run each time that you execute any request on your web server, you can see a javascript alert (you can also disable it) and a little report in the logs when a new related issue is found.
+
+#### Shortcuts
+We are using [Guard](https://github.com/guard/guard) for automating the automated inspection of code changes. Guard is a command line tool to easily handle events on file system modifications. We have integrated Guard with Inch, Rubycritic and Rubocop. If you want to execute this process you can execute the `$ guard` command in the root project path.
+
+If you do not want have a process for the monitoring stuff, you can run this task `code_quality:inspect` for running both Rubycritic and Rubocop inspections by yourself.
 
 ### FRONTEND
 ### DEBUGGING
