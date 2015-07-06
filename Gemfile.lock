@@ -166,6 +166,7 @@ GEM
     fast_stack (0.1.0)
       rake
       rake-compiler
+    ffi (1.9.10)
     flamegraph (0.1.0)
       fast_stack
     flay (2.4.0)
@@ -174,12 +175,31 @@ GEM
     flog (4.2.1)
       ruby_parser (~> 3.1, > 3.1.0)
       sexp_processor (~> 4.4)
+    formatador (0.2.5)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
     grit (2.5.0)
       diff-lcs (~> 1.1)
       mime-types (~> 1.15)
       posix-spawn (~> 0.3.6)
+    guard (2.12.8)
+      formatador (>= 0.2.4)
+      listen (>= 2.7, <= 4.0)
+      lumberjack (~> 1.0)
+      nenv (~> 0.1)
+      notiffany (~> 0.0)
+      pry (>= 0.9.12)
+      shellany (~> 0.0)
+      thor (>= 0.18.1)
+    guard-inch (0.1.0)
+      guard
+      inch
+    guard-rubocop (1.2.0)
+      guard (~> 2.0)
+      rubocop (~> 0.20)
+    guard-rubycritic (1.4.0)
+      guard (~> 2.6)
+      rubycritic (~> 1.4)
     haml (4.0.6)
       tilt
     haml-rails (0.9.0)
@@ -230,8 +250,12 @@ GEM
       sprockets (> 2, < 4)
       tilt
     libv8 (3.16.14.7)
+    listen (3.0.1)
+      rb-fsevent (>= 0.9.3)
+      rb-inotify (>= 0.9)
     loofah (2.0.2)
       nokogiri (>= 1.5.9)
+    lumberjack (1.0.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     memoizable (0.4.2)
@@ -259,9 +283,13 @@ GEM
       connection_pool (~> 2.0)
       optionable (~> 0.2.0)
     multi_json (1.11.1)
+    nenv (0.2.0)
     newrelic_rpm (3.12.0.288)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
+    notiffany (0.0.6)
+      nenv (~> 0.1)
+      shellany (~> 0.0)
     optionable (0.2.0)
     origin (2.1.1)
     orm_adapter (0.5.0)
@@ -341,6 +369,9 @@ GEM
     rake (10.4.2)
     rake-compiler (0.9.5)
       rake
+    rb-fsevent (0.9.5)
+    rb-inotify (0.9.5)
+      ffi (>= 0.5.0)
     rdoc (4.2.0)
     reek (1.6.5)
       parser (~> 2.2.0.pre.7)
@@ -402,6 +433,7 @@ GEM
     secure_headers (2.2.1)
       user_agent_parser
     sexp_processor (4.6.0)
+    shellany (0.0.1)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
     simple_form (3.1.0)
@@ -493,6 +525,10 @@ DEPENDENCIES
   factory_girl_rails
   faker
   flamegraph
+  guard
+  guard-inch
+  guard-rubocop
+  guard-rubycritic
   haml
   haml-rails
   i18n-tasks (~> 0.7.12)

@@ -35,6 +35,13 @@ class User
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
 
+  #
+  # Fix error for devise and mongoid integration, error happens because the warden session is not right
+  #
+  # @param [Mongoid::Document] record
+  #
+  # @return [Array]
+  #
   def self.serialize_into_session(record)
     [record.id.to_s, record.authenticatable_salt]
   end

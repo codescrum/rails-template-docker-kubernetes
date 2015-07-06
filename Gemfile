@@ -38,6 +38,7 @@ gem 'secure_headers'
 
 
 group :development do
+  gem 'guard'
   gem 'haml-rails' # only in dev, because haml-rails adds the generators
   gem 'quiet_assets'
   gem 'rails_layout'
@@ -50,8 +51,11 @@ group :development do
   # gems for inspecting code qualitty
   gem 'i18n-tasks', '~> 0.7.12'
   gem 'inch', require: false
+  gem 'guard-inch'
   gem 'rubocop', require: false
+  gem 'guard-rubocop'
   gem 'rubycritic', require: false
+  gem 'guard-rubycritic'
   gem 'brakeman-min', require: false
 end
 

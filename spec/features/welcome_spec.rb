@@ -16,6 +16,9 @@ feature 'Welcome Page' do
   end
 end
 
+#
+# Makes a simple HTTP request to Locahost (testing purpose)
+#
 def make_http_request
   Net::HTTP.get_response('localhost', '/ping', 3000).body
 end

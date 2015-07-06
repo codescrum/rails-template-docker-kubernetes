@@ -1,7 +1,12 @@
-# Class used for describing all behaviour associated with user abilities
+# Class used for describing all behaviour associated with the user abilities
 class Ability
   include CanCan::Ability
 
+  #
+  # Use this for configuring your abilities
+  #
+  # @param [User] user
+  #
   def initialize(user)
     # Define abilities for the passed in user here. For example:
     #
