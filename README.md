@@ -165,6 +165,9 @@ A Ruby static code analyzer, based on the community Ruby style guide. You can ex
 #### Rubycritic ([GITHUB REPO](https://github.com/whitesmith/rubycritic))
 RubyCritic is a gem that wraps around static analysis gems such as [Reek](https://github.com/troessner/reek), [Flay](https://github.com/seattlerb/flay) and [Flog](https://github.com/seattlerb/flog) to provide a quality report of your Ruby code. You can execute this code inspection process by using the `$ rubycritic app` command, it will generate a html file set for the code quality report, you can find this in `tmp/rubycritic/overview.html`.
 
+#### Rails Best Practices ([GITHUB REPO](https://github.com/railsbp/rails_best_practices))
+It is a code metric tool to check the quality of Rails code. It is a little old fashioned but it could help you with some metrics that are not visible for the others analysers (Rubocop, Rubycritic)
+
 #### Inch ([GITHUB REPO](https://github.com/rrrene/inch))
 A documentation measurement tool for Ruby, based on YARD. you can generate several documentation reports for your code documentation, execute this code inspection by using the `$ inch` command, however you can also use other options like: `$ inch stats` `$ inch lists` `$ inch suggest` for obtaining a most complete information. You can see a quick start guide [here](http://trivelop.de/inch/)
 
@@ -172,20 +175,19 @@ A documentation measurement tool for Ruby, based on YARD. you can generate sever
 Bullet helps you to kill N+1 queries and unused eager loading, it will run each time that you execute any request on your web server, you can see either a javascript alert (you can also disable it) or a little report in the logs (or both of them) when a new related issue is found. You can find the config block in the `config/environment/development.rb` file
 
 #### Shortcuts
-We are using [Guard](https://github.com/guard/guard) for automating the automated inspection of code changes. Guard is a command line tool to easily handle events on file system modifications. We have integrated Guard with Inch, Rubycritic and Rubocop. If you want to execute this process you can execute the `$ guard` command in the root project path.
+We are using [Guard](https://github.com/guard/guard) for automating the inspection of code changes. Guard is a command line tool to easily handle events on file system modifications. We have integrated Guard with Inch, Rubycritic and Rubocop. If you want to execute this process you can run the `$ guard` command in the root project path.
 
-If you do not want have a process for the monitoring stuff, you can run this task `code_quality:inspect` for running both Rubycritic and Rubocop inspections by yourself.
+If you do not want have a process for the monitoring stuff, you can run this task `code_quality:inspect` for running both Rubycritic, Rails Best Practices and Rubocop inspections by yourself.
 
 ### PERFORMANCE
 Improving our application’s performance is really a critic stuff, in the previous section (**CODE QUALITY**) we have included the **Bullet** gem, you can use it for improving the performance a lot. However, we have included other gems which are very useful for tracking your load times as well.
-
 #### Rack Mini Profiler ([GITHUB PROJECT](https://github.com/MiniProfiler/rack-mini-profiler))
 It is a middleware that displays speed badge for every html page. Designed to work both in production and in development (it is configured in the development environment by default). If you experiment some problems with the caching behaviour you can see this [section](https://github.com/MiniProfiler/rack-mini-profiler#caching-behavior)
 
 #### Flamegraph ([GITHUB PROJECT](https://github.com/brendangregg/FlameGraph))
 It is a stack trace visualizer for Ruby 2.0, flamegraph support is built into rack-mini-profiler, just require this gem and you should be good to go. you only need to add **?pp=flamegraph** at the end of your *query string*
 
-### DEBUGGING
+### DEBUGGING & LOGGING
 Debugging is a pretty important process for developing an application, we have integrated a [jazz_hands](https://github.com/jkrmr/jazz_hands) gem, it is an opinionated set of console-related gems and a bit of glue (having [Pry](https://github.com/pry/pry) as its core):
 
 * [**Pry**][pry] for a powerful shell alternative to IRB.
@@ -205,7 +207,3 @@ Debugging is a pretty important process for developing an application, we have i
   you type. _Optional. MRI 2.0.0+ only_
 
 You can see how to use Pry [here](http://www.sitepoint.com/rubyists-time-pry-irb/) there are amazing tricks and commands that you can utilize for inspecting your code, even make a [RDD - REPL Driven Development](https://www.youtube.com/watch?v=D9j_Mf91M0I).
-
-### FRONTEND
-
-### MISC

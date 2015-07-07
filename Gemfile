@@ -50,6 +50,7 @@ group :development do
   gem 'flamegraph'
   # gems for inspecting code qualitty
   gem 'i18n-tasks', '~> 0.7.12'
+  gem 'rails_best_practices', require: false
   gem 'inch', require: false
   gem 'guard-inch'
   gem 'rubocop', require: false
