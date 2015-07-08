@@ -36,6 +36,9 @@ module RailsTemplate
   end
 end
 
+# Require Sassish
+require File.expand_path(File.join('..', '..', 'lib', 'sassish', 'sassish.rb'), __FILE__)
+
 ###### Heroku deployment hack ######
 # copy mongoid config example file into 'real' file
 if Rails.env.production? || Rails.env.staging?
