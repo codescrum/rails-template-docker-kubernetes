@@ -1,8 +1,9 @@
 require "sass/rails"
+require "rails/generators"
 require "rails/generators/sass/assets/assets_generator"
 require "rails/generators/scss/assets/assets_generator"
-require File.expand_path(File.join('..', 'generators', 'sass', 'assets', 'assets_generator'), __FILE__)
-require File.expand_path(File.join('..', 'generators', 'scss', 'assets', 'assets_generator'), __FILE__)
+require File.expand_path(File.join('..', 'extensions', 'generators', 'sass', 'assets', 'assets_generator'), __FILE__)
+require File.expand_path(File.join('..', 'extensions', 'generators', 'scss', 'assets', 'assets_generator'), __FILE__)
 
 # This module adapts almost all the generators associated with the stylesheet organization approach
 # described on the Readme file.
@@ -30,8 +31,8 @@ module Sassish
   # Apply monkey patching on stylesheet generators
   #
   def self.modify_stylesheet_generators
-    Sass::Generators::AssetsGenerator.__send__ :include, Sassish::Generators::Sass::Assets::AssetsGenerator
-    Scss::Generators::AssetsGenerator.__send__ :include, Sassish::Generators::Scss::Assets::AssetsGenerator
+    Sass::Generators::AssetsGenerator.__send__ :include, Sassish::Extensions::Generators::Sass::Assets::AssetsGenerator
+    Scss::Generators::AssetsGenerator.__send__ :include, Sassish::Extensions::Generators::Scss::Assets::AssetsGenerator
   end
 
   # defines wrapped accessor to Sassish configurator
