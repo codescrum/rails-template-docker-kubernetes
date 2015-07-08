@@ -32,6 +32,8 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
+  config.sass.preferred_syntax = :sass
+
   # Bullet configuration
   config.after_initialize do
     Bullet.enable = true
