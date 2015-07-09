@@ -4,6 +4,7 @@ require "rails/generators/sass/assets/assets_generator"
 require "rails/generators/scss/assets/assets_generator"
 require File.expand_path(File.join('..', 'extensions', 'generators', 'sass', 'assets', 'assets_generator'), __FILE__)
 require File.expand_path(File.join('..', 'extensions', 'generators', 'scss', 'assets', 'assets_generator'), __FILE__)
+require File.expand_path(File.join('..', '..', 'generators', 'rails', 'precompiled_stylesheet_generator'), __FILE__)
 
 # This module adapts almost all the generators associated with the stylesheet organization approach
 # described on the Readme file.
