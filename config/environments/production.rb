@@ -72,4 +72,10 @@ Rails.application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  # Caches all the dynamic stylesheet resources for avoiding that
+  # the existing stylesheet verification hits the hard disk, this
+  # action is really useful in production environments for improving
+  # the performance when the sassish module is included
+  config.sassish.cache_stylesheet_resources = true
 end

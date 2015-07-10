@@ -4,10 +4,7 @@
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
     %title= content_for?(:title) ? yield(:title) : 'Rails Foo'
     %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Rails Foo'}"}
-    - stylesheet_resource_path = "#{File.join(Sassish.relative_stylesheet_directory_path,"#{controller_name}")}"
-    - dog = File.exist? File.expand_path(File.join(Rails.root, Sassish.relative_root_for_stylesheets, "#{stylesheet_resource_path}.#{Rails.configuration.sass.preferred_syntax}"), __FILE__)
-    / - stylesheet_resource_path = "" unless File.exist? File.expand_path(File.join('../../../../', Sassish.relative_root_for_stylesheets, stylesheet_resource_path), __FILE__)
-    = stylesheet_link_tag 'application', stylesheet_resource_path, media: 'all', 'data-turbolinks-track' => true
+    = sassish_stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body

@@ -34,6 +34,12 @@ Rails.application.configure do
 
   config.sass.preferred_syntax = :sass
 
+  # Caches all the dynamic stylesheet resources for avoiding that
+  # the existing stylesheet verification hits the hard disk, this
+  # action is really useful in production environments for improving
+  # the performance when the sassish module is included.
+  config.sassish.cache_stylesheet_resources = false
+
   # Bullet configuration
   config.after_initialize do
     Bullet.enable = true
