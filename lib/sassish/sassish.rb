@@ -17,6 +17,8 @@ module Sassish
   # Sets the new stylesheet location app/assets/stylesheets/<location>
   mattr_accessor :stylesheet_directory_path
 
+  mattr_accessor :relative_stylesheet_directory_path
+
   #
   # Defines a new stylesheet folder location and starts the monkey patching for the stylesheet generators
   #
@@ -24,6 +26,7 @@ module Sassish
   #
   def self.define_stylesheet_path(relative_stylesheet_path)
     self.relative_root_for_stylesheets = 'app/assets/stylesheets'
+    self.relative_stylesheet_directory_path = relative_stylesheet_path
     self.stylesheet_directory_path = File.join(relative_root_for_stylesheets, relative_stylesheet_path)
     self.modify_stylesheet_generators
   end

@@ -6,7 +6,7 @@ Base template for deploying Rails applications
 
   - Ruby 2.2.0
 
-  - Rails 4.2.2
+  - Rails 4.2.3
 
   - Mongoid 4.0.2
 
