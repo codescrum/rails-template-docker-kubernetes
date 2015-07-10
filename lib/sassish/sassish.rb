@@ -17,6 +17,7 @@ module Sassish
   # Sets the new stylesheet location app/assets/stylesheets/<location>
   mattr_accessor :stylesheet_directory_path
 
+  # pure relative path to new style folder
   mattr_accessor :relative_stylesheet_directory_path
 
   #
