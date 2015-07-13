@@ -28,7 +28,7 @@ module RailsTemplate
     # config.i18n.default_locale = :de
 
     # Auto-loading lib files
-    config.autoload_paths << Rails.root.join('lib')
+    config.autoload_paths << Rails.root.join('lib/sassish')
 
     # Avoids that each controller loads all existent helpers, this could be a problem
     # when you try to segment your helper methods

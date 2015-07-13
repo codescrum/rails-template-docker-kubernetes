@@ -1,3 +1,4 @@
+# Rails engine for sassish
 module Sassish
   class Engine < Rails::Railtie
     sassish_config = ActiveSupport::OrderedOptions.new
