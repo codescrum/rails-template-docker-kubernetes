@@ -27,7 +27,10 @@ module Sassish
 
     #
     # Adds a css resource for loading it from the sassish_stylesheet_link_tag helper.
-    # It uses content_for helper explicitly
+    # It uses content_for helper explicitly.
+    #
+    # Remember that if you are adding a stylesheet resource that is located inside
+    # assets/stylesheets, you need to add it into assests.precompile declaration as well
     #
     # @param [ String ] resource_paths relative path to the css resources (use comma
     #                   for separating them), root path is set to app/assets/stylesheets
@@ -36,7 +39,7 @@ module Sassish
     #
     #   add_style_resource 'main/styles/my_stylesheet.css, vendor/stylesheets/cat.css'
     #
-    def add_style_resource(resource_paths)
+    def add_sassish_style(resource_paths)
       content_for :added_sassish_stylesheets, resource_paths
     end
 
