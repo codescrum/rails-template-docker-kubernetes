@@ -32,11 +32,11 @@ module Sassish
   # @param [String] relative_stylesheet_path
   #
   def self.define_stylesheet_path(relative_stylesheet_path)
-    self.relative_root_for_stylesheets = 'app/assets/stylesheets'
-    self.relative_stylesheet_directory_path = relative_stylesheet_path
-    self.stylesheet_directory_path = File.join(relative_root_for_stylesheets, relative_stylesheet_path)
-    self.modify_stylesheet_generators
-    self.clear_sassish_cache
+    relative_root_for_stylesheets = 'app/assets/stylesheets'
+    relative_stylesheet_directory_path = relative_stylesheet_path
+    stylesheet_directory_path = File.join(relative_root_for_stylesheets, relative_stylesheet_path)
+    modify_stylesheet_generators
+    clear_sassish_cache
   end
 
   #
