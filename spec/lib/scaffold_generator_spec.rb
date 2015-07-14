@@ -22,23 +22,21 @@ describe Rails::Generators::ScaffoldGenerator, type: :generator do
         Rails.application.config.assets.precompile += %w( application-welcome.css application-session.css )
       eos
       dirname = File.join(DESTINATION, 'config', 'initializers')
-      unless File.directory?(dirname)
-        FileUtils.mkdir_p(dirname)
-      end
-      File.open(File.join(dirname, 'assets.rb'), 'w') {|f| f.write assets_initializer_content }
+      FileUtils.mkdir_p(dirname) unless File.directory?(dirname)
+      File.open(File.join(dirname, 'assets.rb'), 'w') { |f| f.write assets_initializer_content }
       # A random scaffolding for Chiguiro Model
       run_generator %w(chiguiro --skip-resource_route)
     end
 
     context 'initializer' do
       subject { file 'config/initializers/assets.rb' }
-      it { should contain /%w\( main\/styles\/chiguiros.css/ }
+      it { should contain %r{%w\( main\/styles\/chiguiros.css} }
     end
 
     context 'stylesheet folder' do
       subject { file 'app/assets/stylesheets/main/styles/chiguiros.sass' }
       it { should exist }
-      it { should contain /Place all the styles related to the chiguiros controller here./ }
+      it { should contain 'Place all the styles related to the chiguiros controller here.' }
     end
   end
 
@@ -57,23 +55,21 @@ describe Rails::Generators::ScaffoldGenerator, type: :generator do
         Rails.application.config.assets.precompile += %w( application-welcome.css application-session.css )
       eos
       dirname = File.join(DESTINATION, 'config', 'initializers')
-      unless File.directory?(dirname)
-        FileUtils.mkdir_p(dirname)
-      end
-      File.open(File.join(dirname, 'assets.rb'), 'w') {|f| f.write assets_initializer_content }
+      FileUtils.mkdir_p(dirname) unless File.directory?(dirname)
+      File.open(File.join(dirname, 'assets.rb'), 'w') { |f| f.write assets_initializer_content }
       # A random scaffolding for Chiguiro Model
       run_generator %w(chiguiro --skip-resource_route --stylesheet-engine=scss)
     end
 
     context 'initializer' do
       subject { file 'config/initializers/assets.rb' }
-      it { should contain /%w\( main\/styles\/chiguiros.css/ }
+      it { should contain %r{%w\( main\/styles\/chiguiros.css} }
     end
 
     context 'stylesheet folder' do
       subject { file 'app/assets/stylesheets/main/styles/chiguiros.scss' }
       it { should exist }
-      it { should contain /Place all the styles related to the chiguiros controller here./ }
+      it { should contain 'Place all the styles related to the chiguiros controller here.' }
     end
   end
 end

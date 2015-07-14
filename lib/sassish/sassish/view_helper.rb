@@ -1,5 +1,5 @@
-# Add the necessary view helpers for Sassish
 module Sassish
+  # Add the necessary view helpers for Sassish
   module ViewHelper
     #
     # Modifies the stylesheet_link_tag invocation for adding both a dynamic css resource
@@ -21,9 +21,8 @@ module Sassish
       added_style_resources.unshift dynamic_stylesheet_resource if sassish_stylesheet_resource_exists? stylesheet_resource_full_path
       added_style_resources.unshift manifest
       # Invokes the real stylesheet_link_tag
-      stylesheet_link_tag *added_style_resources, options
+      stylesheet_link_tag(*added_style_resources, options)
     end
-
 
     #
     # Adds a css resource for loading it from the sassish_stylesheet_link_tag helper.
@@ -56,7 +55,7 @@ module Sassish
     #
     def sassish_stylesheet_resource_exists?(stylesheet_resource_full_path)
       if Rails.configuration.sassish.cache_stylesheet_resources
-        sassish_cache = Rails.cache.fetch("sassish")
+        sassish_cache = Rails.cache.fetch('sassish')
         resource = sassish_cache["stylesheet-#{controller_name}"]
         resource.nil? ? sassish_cache["stylesheet-#{controller_name}"] = File.exist?(stylesheet_resource_full_path) : resource
       else
@@ -65,4 +64,3 @@ module Sassish
     end
   end
 end
-

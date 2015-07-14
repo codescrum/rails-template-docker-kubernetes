@@ -6,7 +6,12 @@ AllCops:
   Exclude:
     - 'db/**/*'
     - 'config/**/*'
+    - 'tmp/**/*'
     - 'script/**/*'
     - !ruby/regexp /old_and_unused\.rb$/
 Metrics/LineLength:
   Max: 200
+Metrics/AbcSize:
+  # The ABC size is a calculated magnitude, so this number can be a Fixnum or
+  # a Float.
+  Max: 17

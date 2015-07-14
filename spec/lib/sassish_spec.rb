@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-# Sassish is included and configured by default, the reason for that is that Sassish is coupled with the 
-# Rails engine and we need to declare a specific configuration on Rails for defining how the sassish 
+# Sassish is included and configured by default, the reason for that is that Sassish is coupled with the
+# Rails engine and we need to declare a specific configuration on Rails for defining how the sassish
 # styles will be look for
 
 # TODO: Sassish should be a gem, this is the reason for that the testing process is weird
@@ -30,6 +30,6 @@ describe Sassish do
   end
 
   it 'checks if Sassish Rails.cache key is cleared and redefined' do
-    expect(Rails.cache.fetch("sassish")).to be_eql Hash.new
+    expect(Rails.cache.fetch('sassish')).to be_eql({})
   end
 end

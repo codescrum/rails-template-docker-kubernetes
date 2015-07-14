@@ -1,13 +1,11 @@
-
 # Helper
 require File.expand_path(File.join('..', 'sassish', 'view_helper'), __FILE__)
 # Engine
 require File.expand_path(File.join('..', 'sassish', 'engine'), __FILE__)
 
-# This module adapts almost all the generators associated with the stylesheet organization approach
+# This module adapts almost all the generators associated with the stylesheet organization approach
 # described on the Readme file.
 module Sassish
-
   # relative root for the stylesheets, it will be used for configuring the
   # location for the sass template (rails generator)
   mattr_accessor :relative_root_for_stylesheets
@@ -46,8 +44,8 @@ module Sassish
   # Clears the cached sassish for avoiding posible conflicts
   #
   def self.clear_sassish_cache
-    Rails.cache.fetch("sassish").try(:clear)
-    Rails.cache.fetch("sassish") { {} }
+    Rails.cache.fetch('sassish').try(:clear)
+    Rails.cache.fetch('sassish') { {} }
   end
 
   # defines wrapped accessor to Sassish configurator
