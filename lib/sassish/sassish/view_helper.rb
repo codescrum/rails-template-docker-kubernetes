@@ -57,8 +57,8 @@ module Sassish
     def sassish_stylesheet_resource_exists?(stylesheet_resource_full_path)
       if Rails.configuration.sassish.cache_stylesheet_resources
         sassish_cache = Rails.cache.fetch("sassish")
-        resource = assish_cache["stylesheet-#{controller_name}"]
-        resource.nil? ? assish_cache["stylesheet-#{controller_name}"] = File.exist?(stylesheet_resource_full_path) : resource
+        resource = sassish_cache["stylesheet-#{controller_name}"]
+        resource.nil? ? sassish_cache["stylesheet-#{controller_name}"] = File.exist?(stylesheet_resource_full_path) : resource
       else
         File.exist? stylesheet_resource_full_path
       end

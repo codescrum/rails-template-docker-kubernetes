@@ -76,6 +76,4 @@ describe Rails::Generators::ScaffoldGenerator, type: :generator do
       it { should contain /Place all the styles related to the chiguiros controller here./ }
     end
   end
-
-
 end
