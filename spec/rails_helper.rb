@@ -17,7 +17,7 @@ unless zeus_running?
     add_group 'Helpers', 'app/helpers'
     add_group 'Services', 'app/services'
     add_group 'Mailers', 'app/mailers'
-    add_group 'Mailers', 'lib'
+    add_group 'Libs', 'lib'
     # You can regroup your files by their properties (for example 'lines of code')
     add_group 'Long files' do |src_file|
       src_file.lines.count > 100

@@ -23,7 +23,7 @@ class CustomPlan < Zeus::Rails
     SimpleCov.start do
       filters = ['config/', 'spec/']
       filters.each { |filter| add_filter filter }
-      groups = [['Models', 'app/models'], ['Controllers', 'app/controllers'], ['Helpers', 'app/helpers'], ['Services', 'app/services'], ['Mailers', 'app/mailers']]
+      groups = [['Models', 'app/models'], ['Controllers', 'app/controllers'], ['Helpers', 'app/helpers'], ['Services', 'app/services'], ['Mailers', 'app/mailers'], ['Libs', 'lib']]
       groups.each { |group| add_group(*group) }
       # You can regroup your files by their properties (for example 'lines')
       add_group 'Long files' do |src_file|
