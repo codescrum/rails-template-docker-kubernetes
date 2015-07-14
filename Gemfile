@@ -88,6 +88,7 @@ group :test do
   gem 'capybara-screenshot'
   gem 'database_cleaner'
   gem 'mongoid-rspec'
+  gem 'ammeter'
 end
 
 group :production do

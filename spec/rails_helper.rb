@@ -11,7 +11,7 @@ unless zeus_running?
   formatters = [SimpleCov::Formatter::HTMLFormatter]
   SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[*formatters]
   SimpleCov.start do
-    add_filter 'config/'
+    add_filter ['config/', 'spec/']
     add_group 'Models', 'app/models'
     add_group 'Controllers', 'app/controllers'
     add_group 'Helpers', 'app/helpers'
