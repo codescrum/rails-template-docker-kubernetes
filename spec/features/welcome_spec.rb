@@ -11,8 +11,15 @@ feature 'Welcome Page' do
     expect(page).to have_content 'Sign In'
   end
 
-  scenario 'do the ping', :vcr do
-    expect(make_http_request).to be_eql 'pong!'
+  scenario 'do the ping' do
+    visit '/ping'
+    expect(page).to have_content 'pong!'
+  end
+
+  context 'with VCR' do
+    scenario 'do the ping', :vcr do
+      expect(make_http_request).to be_eql 'pong!'
+    end
   end
 end
 
