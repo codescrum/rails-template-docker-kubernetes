@@ -44,6 +44,7 @@ group :development do
   gem 'quiet_assets'
   gem 'rails_layout'
   gem 'bullet'
+  gem 'meta_request'
   # For supporting flamegraph without errors
   # see here: https://github.com/SamSaffron/flamegraph/blob/master/lib/flamegraph.rb#L5
   gem 'stackprof'
