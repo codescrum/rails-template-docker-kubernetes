@@ -302,7 +302,7 @@ We are going to write a post for explaining Sassish in depth.
 #### JAVASCRIPT LAND
 We have defined a way how to deal with our javascript code, first of all, we have included coffeescript in favor of the native approach (we still need investigate more about the new features on ES6 - you can find more information [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_6_support_in_Mozilla) and [here](https://github.com/lukehoban/es6features/blob/master/README.md)), However the main focus of our JS approach is not related with a metalenguage or a specific functionality itself, in fact our approach is pretty simple but it will save you a lot of time in the future.
 
-We propose that you should manage your javascript code using a master JS Object which is segmented according to your application domain through little components (as a part of the main object), each component will have a setup method convention for invoking its functionality from whichever site of your rails views (whenever you need it, of course).
+We propose that you should manage your javascript code using a master JS Object which is segmented according to your application domain through little components (as a part of the main object), each component will have a `setup` method convention for invoking its functionality from whichever site in your rails views (whenever you need it, of course).
 
 This approach allows you to build a cleaner code facilitating its testing and growing. Then, you could integrate your own approach for segmenting the plane file itself (the file in which the master object is contained), you can also include something similar to [Gon](https://github.com/gazay/gon) gem for managing how the components are loaded, however,  for now,  we prefered leave the JS loading process as it is.
 
@@ -310,7 +310,7 @@ Below code shows the current structure for the `main.js.coffee` file:
 
 ```coffee
 # app/assets/javascripts/main.js.coffee
-window.RailsFoo = 
+window.Foo = 
   welcome:
     setup: ->
       @sayHello()
@@ -358,7 +358,29 @@ Obviously, you are free to build your master JS object as you wish (with all nam
 #### BOOTSTRAP INTEGRATION
 This template is integrated with the [Bootstrap](http://getbootstrap.com/) fremwork. You can find some configuration about the integration in the sprocket manifest files and in the `app/assets/stylesheets/bootstrap_and_overrides.css.less` file. Also, we have integrated the [simple_form](https://github.com/plataformatec/simple_form) gem, and we have wrapped it with a bootstrap configuration, you can see this here: `config/initializers/simple_form_bootstrap.rb`.
 
-## Contributors
+### MISC (but not least important)
+#### ANALYTIC SCRIPTS
+One of the most important thing in this era is the data analysis process, you can achieve those metrics by using several existing tools ([Google Analytics](http://www.google.com/intl/en/analytics/), [Kissmetrics](https://kissmetrics.com/), [Piwik](http://piwik.org/), [Clicky](http://clicky.com/), [Woopra](https://www.woopra.com/), etc), however you need to pay much attention in including your scripts in the right place.
+
+For that reason, we have created a partial area for including all the scripts that you need for monitoring to your customers (yes, only a partial, there is nothing magical here), but bear in mind that this partial must be included in all existent layouts, because in the most of cases the analytics scripts need to be placed in all pages in which you want to monitoring. You can find this partial in `app/views/partials/_analytics_scripts.html.haml`.
+  
+#### RAILS PANEL ([GITHUB REPO](https://github.com/dejan/rails_panel))
+**RailsPanel** is a Chrome extension for Rails development that will end your tailing of development.log. Have all information about your Rails app requests in the browser - in the Developer Tools panel. Provides insight to db/rendering/total times, parameter list, rendered views and more.
+
+Although this gem is more useful for `Active record` than `Mongoid` it helps you with your logging metrics.
+#### SHOG ([GITHUB REPO](https://github.com/phallguy/shog))
+
+Make your rails 4.0 log details more colorful, we think that the readability is a most of important thing in the development process, this is also the same case for the logs, we could use **RailsPanel** or the [request-log-analyzer](https://github.com/wvanbergen/request-log-analyzer) gem (even though this is more related with ´ActiveRecord´) but we also could have a better way for seeing our logs in a console-based scenario, this is Shog! (you can configure it using its initializer located in`config/initializers/shog.rb`).
+
+#### JUST ONE HELPER PER VIEW
+In  the past, I have had some problems with my helpers when my application begins to grow, essentially, it is difficult to achieve a helper hierarchy structure with the default rails helper approach. But we do not want to change the helper approach from rails, but at least, we want to guarantee that there is no place to ambiguities, for that reason we have included the following line `config.action_controller.include_all_helpers = false` in the `config/application.rb` file, it will avoid that in each request are loaded all existent helpers. at the end only the helper associated with the specific controller and the `ApplicationHelper` will be loaded
+
+#### SERVICE OBJECT
+
+## IN CLOSING
+We have included many useful gems and tools in order to improve our both development and environment scenarios according to our needs and experiences, however, you always can disable whatever thing you wish or add more things, this is our base and and it will follow in evolution.
+
+## CONTRIBUTORS
 <ul>
   <li><a href="https://github.com/johaned">Johan Tique</a></li>
   <li><a href="https://github.com/gato-omega">Miguel Diaz</a></li>
