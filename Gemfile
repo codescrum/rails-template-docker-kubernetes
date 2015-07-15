@@ -45,6 +45,7 @@ group :development do
   gem 'rails_layout'
   gem 'bullet'
   gem 'meta_request'
+  gem 'shog'
   # For supporting flamegraph without errors
   # see here: https://github.com/SamSaffron/flamegraph/blob/master/lib/flamegraph.rb#L5
   gem 'stackprof'
