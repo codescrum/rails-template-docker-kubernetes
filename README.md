@@ -6,13 +6,14 @@ Base template for deploying Rails applications
 
   - Ruby 2.2.0
 
-  - Rails 4.2.3
+  - Rails 4.2.2
 
   - Mongoid 4.0.2
 
 Also this template is wrapped by [Zeus gem](https://github.com/burke/zeus) which preloads your Rails app so that your normal development tasks such as console, server, generate, and specs/tests take less than one second.
 
 You can configure some zeus settings using the `zeus.json` file located in your rails root path.
+We are not using Spring. If you would like to disable all possible problems with Spring, use the `DISABLE_SPRING=true` environment variable (place in your .zshrc file if you want).
 
 ## TECH EXPLANATIONS
 
@@ -177,12 +178,13 @@ Bullet helps you to kill N+1 queries and unused eager loading, it will run each 
 #### Shortcuts
 We are using [Guard](https://github.com/guard/guard) for automating the inspection of code changes. Guard is a command line tool to easily handle events on file system modifications. We have integrated Guard with Inch, Rubycritic and Rubocop. If you want to execute this process you can run the `$ guard` command in the root project path.
 
-If you do not want have a process for the monitoring stuff, you can run this task `code_quality:inspect` for running both Rubycritic, Rails Best Practices and Rubocop inspections by yourself.
+If you do not want have a process for the monitoring stuff, you can run this task `code_quality:inspect` for running both Rubycritic, Rail Best Practices and Rubocop inspections by yourself.
 
 ### PERFORMANCE
 Improving our application’s performance is really a critic stuff, in the previous section (**CODE QUALITY**) we have included the **Bullet** gem, you can use it for improving the performance a lot. However, we have included other gems which are very useful for tracking your load times as well.
+
 #### Rack Mini Profiler ([GITHUB PROJECT](https://github.com/MiniProfiler/rack-mini-profiler))
-It is a middleware that displays speed badge for every html page. Designed to work both in production and in development (it is configured in the development environment by default). If you experiment some problems with the caching behaviour you can see this [section](https://github.com/MiniProfiler/rack-mini-profiler#caching-behavior)
+It is a middleware that displays speed badge for every html page. Designed to work both in production and in development (it is configured in the development environment by default). If you experiment some problems with the caching behaviour you can see this [section](https://github.com/MiniProfiler/rack-mini-profiler#caching-behavior). In other hand, it could become annoying, so you can disable it by following the next instructions
 
 #### Flamegraph ([GITHUB PROJECT](https://github.com/brendangregg/FlameGraph))
 It is a stack trace visualizer for Ruby 2.0, flamegraph support is built into rack-mini-profiler, just require this gem and you should be good to go. you only need to add **?pp=flamegraph** at the end of your *query string*
@@ -207,3 +209,95 @@ Debugging is a pretty important process for developing an application, we have i
   you type. _Optional. MRI 2.0.0+ only_
 
 You can see how to use Pry [here](http://www.sitepoint.com/rubyists-time-pry-irb/) there are amazing tricks and commands that you can utilize for inspecting your code, even make a [RDD - REPL Driven Development](https://www.youtube.com/watch?v=D9j_Mf91M0I).
+### FRONTEND
+
+#### THE SASS WAY
+
+We want to integrate a new way for structuring and generating our styles resources in Rails. For that reason we have designed **Sassish**, and I will introduce you to it.
+
+Sassish (we are thinking about changing its name, also we are thinking in gemify this piece of code as well) supports how the style files are organized and how these are loaded, its approach is an hybrid combination for both the traditional assets precompile philosophy and the sass benefits.
+
+The main idea is to simplify the development process and improve the organization, reusability and loading issues (it will help you for including an [OOCSS](http://www.slideshare.net/stubbornella/object-oriented-css) philosophy in the future).
+
+As you can see in the image below, we have two macro-levels of organization (you can choose only one level if you want), the first level solves the problem for including more than one style framework or design tool inside to more than one Rails layout, in this case we have two segmentations: **application** and **application-welcome**.
+
+![alt tag](https://raw.githubusercontent.com/Johaned/rails-template/master/app/assets/images/sassish.png)
+
+
+The second level is the most important one, it defines a new structure in which you have two kind of style resource areas, the first one allows you to define your general style (the common style inherited from the specific rails layout, in this case it is the **main** layout associated with the **application** manifest), all sass files defined here will be loaded in each html page associated with the main layout. Take into account that all common rendered css should be included in the **base** folder, on the other hand, the **core** folder only should be used for reusable components applying a more object oriented philosophy (you can read more info about that [here](http://www.smashingmagazine.com/2011/12/12/an-introduction-to-object-oriented-css-oocss/)  and [here](http://thesassway.com/intermediate/using-object-oriented-css-with-sass)).
+
+The **styles** folder defines an automatic way for loading your stylesheets according to a specific action, it is related to the specific **controller** entity, suppose that you have the following distribution:
+
+![alt tag](https://raw.githubusercontent.com/Johaned/rails-template/master/app/assets/images/new_styles_folder.png)
+
+
+And suppose that you are requesting for a users’ action  (that is on the **main** layout), then **Sassish** will automatically include both **base** styles files and **users.sass** file, it means that all remaining files inside **styles** won’t be included.
+
+However you can also use a **Sassish** helper named **add_sassish_style** for including more style files that you need per specific request (rails view).
+
+```haml
+- add_sassish_style 'main/styles/non-controller'
+%h2= t(".sign_in")
+= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+  .form-inputs
+    = f.input :email, label: false, required: false, autofocus: true, placeholder: t(".your_email")
+    = f.input :password, label: false, required: false, placeholder: t(".your_password")
+    = f.input :remember_me, label: false, inline_label: t(".remember_me"), as: :boolean if devise_mapping.rememberable?
+  .form-actions
+    = f.button :submit, t(".sign_in"), class: 'btn-block'
+.text-right
+  %br
+  = render "devise/shared/links"
+```
+
+Take into account that in order to above code works, you must to include your **non-controller.sass** file to the assets precompile declaration inside the **assets** initializer, you can also use the **precompiled_stylesheet** sassish generator.
+
+```sh
+$ rails g precompiled_stylesheet non-controller 
+```
+
+It will add the non-controller style to the assets precompile declaration, but it will use the folder defined for the sassish styles.
+
+```sh
+# config/initializers/assets.rb
+# Precompile additional assets.
+# application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
+Rails.application.config.assets.precompile += %w( main/styles/non-controller.css application-welcome.css application-session.css )
+```
+
+You can configure the sassish folder by using an initializer, this template already includes it
+
+```ruby
+Sassish.setup do |config|
+  config.define_stylesheet_path 'main/styles'
+end
+```
+
+This piece of code tells Sassish that in the ‘app/assets/stylesheets/**main/styles**’ folder will be stored all individual css style that will be only required using either the specific **controller** or the **add_sassish_style** helper.
+
+Also, you do not need to be worried about your generators (assets, scaffold or similar), **Sassish** modifies the way how the stylesheet files are generated,all new resource created by a generator will take into account the configured sassish folder and the assets precompile declaration, so **Sassish** allows you to manage its approach with ease.
+
+```sh
+$ rails g scaffold user
+$ rails g assets user
+```
+
+Finally, in order to make all this magic works, you need to replace your traditional stylesheet_link_tag to sassish_stylesheet_link_tag, it makes the same process than traditional helper, the main difference is that it will automatically include both a specific controller style resource and all added styles using the add_sassish_style helper.
+
+```haml
+!!!
+/ app/views/layouts/application.html.haml
+%html
+  %head
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
+    %title= content_for?(:title) ? yield(:title) : 'Rails Foo'
+    %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Rails Foo'}"}
+    = sassish_stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+```
+
+## Contributors
+<ul>
+  <li><a href="https://github.com/johaned">Johan Tique</a></li>
+  <li><a href="https://github.com/gato-omega">Miguel Diaz</a></li>
+</ul>
+
