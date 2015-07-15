@@ -158,7 +158,7 @@ We are complimented our test suite with:
 - [Factory Girl](https://github.com/thoughtbot/factory_girl) factory_girl is a fixtures replacement with a straightforward definition syntax, support for multiple build strategies (saved instances, unsaved instances, attribute hashes, and stubbed objects), and support for multiple factories for the same class (user, admin_user, and so on), including factory inheritance.
 
 ### CODE QUALITY
-We have integrated four powerful gems for checking the code quality.
+We have integrated four (4) powerful gems for checking the code quality.
 
 #### Rubocop ([GITHUB REPO](https://github.com/bbatsov/rubocop))
 A Ruby static code analyzer, based on the community Ruby style guide. You can execute this code inspection process by using the `$ rubocop --format html -o tmp/rubocop.html` command, it will generate a new file `tmp/rubocop.html` in which you can see your “offenses” inside your code. Also, you can find the config rubocop file in `.rubocop.yml`
@@ -167,13 +167,13 @@ A Ruby static code analyzer, based on the community Ruby style guide. You can ex
 RubyCritic is a gem that wraps around static analysis gems such as [Reek](https://github.com/troessner/reek), [Flay](https://github.com/seattlerb/flay) and [Flog](https://github.com/seattlerb/flog) to provide a quality report of your Ruby code. You can execute this code inspection process by using the `$ rubycritic app` command, it will generate a html file set for the code quality report, you can find this in `tmp/rubycritic/overview.html`.
 
 #### Rails Best Practices ([GITHUB REPO](https://github.com/railsbp/rails_best_practices))
-It is a code metric tool to check the quality of Rails code. It is a little old fashioned but it could help you with some metrics that are not visible for the others analysers (Rubocop, Rubycritic)
+It is a code metric tool to check the quality of Rails code. It is a little old fashioned but it could help you with some metrics that are not visible to the others analysers (Rubocop, Rubycritic).
 
 #### Inch ([GITHUB REPO](https://github.com/rrrene/inch))
-A documentation measurement tool for Ruby, based on YARD. you can generate several documentation reports for your code documentation, execute this code inspection by using the `$ inch` command, however you can also use other options like: `$ inch stats` `$ inch lists` `$ inch suggest` for obtaining a most complete information. You can see a quick start guide [here](http://trivelop.de/inch/)
+A documentation measurement tool for Ruby, based on YARD. you can generate several documentation reports for your code documentation, execute this code inspection by using the `$ inch` command, however you can also use other options like: `$ inch stats` `$ inch lists` `$ inch suggest` for obtaining a most complete information. You can see a quick start guide [here](http://trivelop.de/inch/).
 
 #### Bullet ([GITHUB REPO](https://github.com/flyerhzm/bullet))
-Bullet helps you to kill N+1 queries and unused eager loading, it will run each time that you execute any request on your web server, you can see either a javascript alert (you can also disable it) or a little report in the logs (or both of them) when a new related issue is found. You can find the config block in the `config/environment/development.rb` file
+Bullet helps you to kill N+1 queries and unused eager loading, it will run each time that you execute any request on your web server, you can see either a javascript alert (you can also disable it) or a little report in the logs (or both of them) when a new related issue is found. You can find the config block in the `config/environment/development.rb` file.
 
 #### Shortcuts
 We are using [Guard](https://github.com/guard/guard) for automating the inspection of code changes. Guard is a command line tool to easily handle events on file system modifications. We have integrated Guard with Inch, Rubycritic and Rubocop. If you want to execute this process you can run the `$ guard` command in the root project path.
@@ -211,32 +211,32 @@ Debugging is a pretty important process for developing an application, we have i
 You can see how to use Pry [here](http://www.sitepoint.com/rubyists-time-pry-irb/) there are amazing tricks and commands that you can utilize for inspecting your code, even make a [RDD - REPL Driven Development](https://www.youtube.com/watch?v=D9j_Mf91M0I).
 ### FRONTEND
 
-#### THE SASS WAY
+#### THE SASS WAY (Sassish)
 
-We want to integrate a new way for structuring and generating our styles resources in Rails. For that reason we have designed **Sassish**, and I will introduce you to it.
+We want to integrate a new way for structuring and generating our stylesheet resources in Rails. For that reason we have designed **Sassish**, and we will introduce you to it.
 
-Sassish (we are thinking about changing its name, also we are thinking in gemify this piece of code as well) supports how the style files are organized and how these are loaded, its approach is an hybrid combination for both the traditional assets precompile philosophy and the sass benefits.
+Sassish (we are thinking about changing its name, also we are thinking in bundling this piece of code in a gem as well) helps you with how the style files are organized and how these are loaded, its approach is an hybrid combination between both the traditional assets precompile philosophy and the benefits of sass' features.
 
-The main idea is to simplify the development process and improve the organization, reusability and loading issues (it will help you for including an [OOCSS](http://www.slideshare.net/stubbornella/object-oriented-css) philosophy in the future).
+The main idea is to simplify the development process by improving the organization, reusability and loading of the stylesheet resources, mitigating many issues that we've seen (it will help you for including an [OOCSS](http://www.slideshare.net/stubbornella/object-oriented-css) philosophy in the future).
 
-As you can see in the image below, we have two macro-levels of organization (you can choose only one level if you want), the first level solves the problem for including more than one style framework or design tool inside to more than one Rails layout, in this case we have two segmentations: **application** and **application-welcome**.
+As you can see in the image below, we have two macro-levels of organization (you can choose only one level if you want), the first level solves the problem for including more than one CSS framework (e.g. Bootstrap vs Foundation) or UI kit (i.e. third party CSS components) by using multiple Rails layouts, in this case we have two segmentations:`application` and `application-welcome`.
 
 ![alt tag](https://raw.githubusercontent.com/Johaned/rails-template/master/app/assets/images/sassish.png)
 
 
-The second level is the most important one, it defines a new structure in which you have two kind of style resource areas, the first one allows you to define your general style (the common style inherited from the specific rails layout, in this case it is the **main** layout associated with the **application** manifest), all sass files defined here will be loaded in each html page associated with the main layout. Take into account that all common rendered css should be included in the **base** folder, on the other hand, the **core** folder only should be used for reusable components applying a more object oriented philosophy (you can read more info about that [here](http://www.smashingmagazine.com/2011/12/12/an-introduction-to-object-oriented-css-oocss/)  and [here](http://thesassway.com/intermediate/using-object-oriented-css-with-sass)).
+The second level is the most important one, it defines a new structure in which you have two kind of style resource areas, the first one allows you to define your general style (the common style inherited from the specific rails layout, in this case it is the **main** layout associated with the `application.css` manifest), all sass files defined here will be loaded in each view associated with the **main** layout. Take into account that all common rendered CSS should be included in the **base** folder, on the other hand, the **core** folder only should be used for reusable components applying a more object oriented philosophy (you can read more info about this [here](http://www.smashingmagazine.com/2011/12/12/an-introduction-to-object-oriented-css-oocss/)  and [here](http://thesassway.com/intermediate/using-object-oriented-css-with-sass)).
 
-The **styles** folder defines an automatic way for loading your stylesheets according to a specific action, it is related to the specific **controller** entity, suppose that you have the following distribution:
+The **styles** folder defines an automatic way for loading your stylesheets according to a specific controller. Suppose that you have the following distribution:
 
 ![alt tag](https://raw.githubusercontent.com/Johaned/rails-template/master/app/assets/images/new_styles_folder.png)
 
 
-And suppose that you are requesting for a users’ action  (that is on the **main** layout), then **Sassish** will automatically include both **base** styles files and **users.sass** file, it means that all remaining files inside **styles** won’t be included.
+And suppose that you are requesting a view which is linked to the `UserController`  (which uses the **main** layout), then **Sassish** will automatically include both **base** and **users.sass** style files, it means that all remaining files inside the **styles** folder won’t be included, which improves performance.
 
-However you can also use a **Sassish** helper named **add_sassish_style** for including more style files that you need per specific request (rails view).
+However you can also use a **Sassish** helper method named `add_sassish_style` for explicitly including any number of style files that you may want for a specific view. For example:
 
 ```haml
-- add_sassish_style 'main/styles/non-controller'
+- add_sassish_style 'main/styles/non-controller', 'any/other/file' # adds non-controller.sass and another file you have lying around only to this view
 %h2= t(".sign_in")
 = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
   .form-inputs
@@ -250,13 +250,13 @@ However you can also use a **Sassish** helper named **add_sassish_style** for in
   = render "devise/shared/links"
 ```
 
-Take into account that in order to above code works, you must to include your **non-controller.sass** file to the assets precompile declaration inside the **assets** initializer, you can also use the **precompiled_stylesheet** sassish generator.
+Take into account that in order for the above code to work, you must to include your `non-controller.sass` file to the assets precompile declaration inside the **assets** initializer, you can also use the **precompiled_stylesheet** Sassish generator.
 
 ```sh
-$ rails g precompiled_stylesheet non-controller 
+$ rails g precompiled_stylesheet non-controller
 ```
 
-It will add the non-controller style to the assets precompile declaration, but it will use the folder defined for the sassish styles.
+It will add a line to include the `non-controller` style file to the assets precompile declaration (in `config/initializers/assets.rb`), but it will use the folder defined for the Sassish styles.
 
 ```sh
 # config/initializers/assets.rb
@@ -265,7 +265,7 @@ It will add the non-controller style to the assets precompile declaration, but i
 Rails.application.config.assets.precompile += %w( main/styles/non-controller.css application-welcome.css application-session.css )
 ```
 
-You can configure the sassish folder by using an initializer, this template already includes it
+You can configure the Sassish folder by using an initializer, this template already includes this
 
 ```ruby
 Sassish.setup do |config|
@@ -273,16 +273,17 @@ Sassish.setup do |config|
 end
 ```
 
-This piece of code tells Sassish that in the ‘app/assets/stylesheets/**main/styles**’ folder will be stored all individual css style that will be only required using either the specific **controller** or the **add_sassish_style** helper.
+This piece of code tells Sassish that the ‘app/assets/stylesheets/**main/styles**’ folder will be used to store all individual CSS style that will be only required using either the specific **controller** or the `add_sassish_style` helper.
 
-Also, you do not need to be worried about your generators (assets, scaffold or similar), **Sassish** modifies the way how the stylesheet files are generated,all new resource created by a generator will take into account the configured sassish folder and the assets precompile declaration, so **Sassish** allows you to manage its approach with ease.
+Also, you do not need to be worried about your generators (assets, scaffold or similar), **Sassish** modifies the way how the stylesheet files are generated. Any new resources created by a generator will take into account the configured Sassish folder and the assets precompile declaration, so **Sassish** allows you to manage its approach with ease.
 
+This will generate and put the files and modify the assets precompile configuration as needed by Sassish automatically.
 ```sh
 $ rails g scaffold user
 $ rails g assets user
 ```
 
-Finally, in order to make all this magic works, you need to replace your traditional stylesheet_link_tag to sassish_stylesheet_link_tag, it makes the same process than traditional helper, the main difference is that it will automatically include both a specific controller style resource and all added styles using the add_sassish_style helper.
+Finally, in order to make all this magic work, you need to replace your traditional `stylesheet_link_tag` and use `sassish_stylesheet_link_tag` instead, it performs exactly as the traditional helper, but it will automatically include the specific controller style resource (e.g. `users.sass`) and any other explicitly added styles using the `add_sassish_style helper`.
 
 ```haml
 !!!
@@ -294,6 +295,68 @@ Finally, in order to make all this magic works, you need to replace your traditi
     %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Rails Foo'}"}
     = sassish_stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
 ```
+
+
+We are going to write a post for explaining Sassish in depth.
+
+#### JAVASCRIPT LAND
+We have defined a way how to deal with our javascript code, first of all, we have included coffeescript in favor of the native approach (we still need investigate more about the new features on ES6 - you can find more information [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_6_support_in_Mozilla) and [here](https://github.com/lukehoban/es6features/blob/master/README.md)), However the main focus of our JS approach is not related with a metalenguage or a specific functionality itself, in fact our approach is pretty simple but it will save you a lot of time in the future.
+
+We propose that you should manage your javascript code using a master JS Object which is segmented according to your application domain through little components (as a part of the main object), each component will have a setup method convention for invoking its functionality from whichever site of your rails views (whenever you need it, of course).
+
+This approach allows you to build a cleaner code facilitating its testing and growing. Then, you could integrate your own approach for segmenting the plane file itself (the file in which the master object is contained), you can also include something similar to [Gon](https://github.com/gazay/gon) gem for managing how the components are loaded, however,  for now,  we prefered leave the JS loading process as it is.
+
+Below code shows the current structure for the `main.js.coffee` file:
+
+```coffee
+# app/assets/javascripts/main.js.coffee
+window.RailsFoo = 
+  welcome:
+    setup: ->
+      @sayHello()
+      return
+    sayHello: ->
+      console.log 'Hey yourself!'
+      return
+```
+
+As you can see, there is a `welcome` component which includes two functions, one of them is the initialization function `setup` which is in charge of invoke all necessary functions in the welcome application domain, this function should be invoked only in the view in which the component is needed.
+
+```haml
+.site-wrapper
+  .site-wrapper-inner
+    .cover-container
+      .masthead.clearfix
+        .inner
+          %h3.masthead-brand= t(".generic")
+          %ul.nav.masthead-nav
+            %li.active
+              %a{:href => "#"}= t(".home")
+            %li
+              %a{:href => "#"}= t(".about_us")
+            %li
+              %a{:href => "#"}= t(".contact")
+      .inner.cover
+        %h1.cover-heading= t(".demo_application")
+        %p.lead= t(".demo_app_description")
+        %p.lead
+          %a.btn.btn-lg.btn-primary{:href => new_user_session_path}= t(".sign_in")
+      .mastfoot
+        .inner
+          %p
+            = t(".all_rights_reserved")
+            = succeed "," do
+              %a.test-auto-prefixer{:href => "#"}= t(".generic")
+
+/ invoking the js welcome component for this specific view
+:javascript
+  Foo.welcome.setup()
+```
+
+Obviously, you are free to build your master JS object as you wish (with all namespaces and segmentation that you need), only keep in mind that your code must be according to the DRY philosophy.
+
+#### BOOTSTRAP INTEGRATION
+This template is integrated with the [Bootstrap](http://getbootstrap.com/) fremwork. You can find some configuration about the integration in the sprocket manifest files and in the `app/assets/stylesheets/bootstrap_and_overrides.css.less` file. Also, we have integrated the [simple_form](https://github.com/plataformatec/simple_form) gem, and we have wrapped it with a bootstrap configuration, you can see this here: `config/initializers/simple_form_bootstrap.rb`.
 
 ## Contributors
 <ul>
