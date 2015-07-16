@@ -1,4 +1,4 @@
-window.Foo = 
+window.RailsFoo =
   welcome:
     setup: ->
       @sayHello()

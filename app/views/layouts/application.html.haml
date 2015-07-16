@@ -1,16 +1,16 @@
-!!!
-%html
-  %head
-    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
-    %title= content_for?(:title) ? yield(:title) : 'Rails Foo'
-    %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Rails Foo'}"}
-    = sassish_stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
-    = csrf_meta_tags
-  %body
-    %header
-      = render 'layouts/navigation'
-    %main{:role => "main"}
-      = render 'layouts/messages'
-      = yield
-    = render 'partials/analytics_scripts'
+- content_for :head_content do
+  %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
+  %title= content_for?(:title) ? yield(:title) : 'Rails Foo'
+  %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Rails Foo'}"}
+  = sassish_stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+  = javascript_include_tag 'application', 'data-turbolinks-track' => true
+  = csrf_meta_tags
+
+- content_for :body_content do
+  %header
+    = render 'layouts/navigation'
+  %main{:role => "main"}
+    = render 'layouts/messages'
+    = yield
+
+= render template: 'layouts/principal'
