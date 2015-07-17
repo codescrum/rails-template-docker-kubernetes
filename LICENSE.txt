@@ -1,4 +1,4 @@
-Copyright (c) 2014 Johan Tique
+Copyright (c) 2014 Codescrum
 
 MIT License
 
