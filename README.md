@@ -158,7 +158,7 @@ We are complimented our test suite with:
 - [Factory Girl](https://github.com/thoughtbot/factory_girl) factory_girl is a fixtures replacement with a straightforward definition syntax, support for multiple build strategies (saved instances, unsaved instances, attribute hashes, and stubbed objects), and support for multiple factories for the same class (user, admin_user, and so on), including factory inheritance.
 
 ### CODE QUALITY
-We have integrated four (4) powerful gems for checking the code quality.
+We have integrated five (5) powerful gems for checking the code quality.
 
 #### Rubocop ([GITHUB REPO](https://github.com/bbatsov/rubocop))
 A Ruby static code analyzer, based on the community Ruby style guide. You can execute this code inspection process by using the `$ rubocop --format html -o tmp/rubocop.html` command, it will generate a new file `tmp/rubocop.html` in which you can see your “offenses” inside your code. Also, you can find the config rubocop file in `.rubocop.yml`
@@ -184,8 +184,12 @@ If you do not want have a process for the monitoring stuff, you can run this tas
 Improving our application’s performance is really a critic stuff, in the previous section (**CODE QUALITY**) we have included the **Bullet** gem, you can use it for improving the performance a lot. However, we have included other gems which are very useful for tracking your load times as well.
 
 #### Rack Mini Profiler ([GITHUB PROJECT](https://github.com/MiniProfiler/rack-mini-profiler))
-It is a middleware that displays speed badge for every html page. Designed to work both in production and in development (it is configured in the development environment by default). If you experiment some problems with the caching behaviour you can see this [section](https://github.com/MiniProfiler/rack-mini-profiler#caching-behavior). In other hand, it could become annoying, so you can disable it by following the next instructions
+It is a middleware that displays speed badge for every html page. Designed to work both in production and in development (it is configured in the development environment by default). If you experiment some problems with the caching behaviour you can see this [section](https://github.com/MiniProfiler/rack-mini-profiler#caching-behavior). In other hand, it could become annoying, so you can disable it by following these instructions:
 
+1. Go to the rack mini profiler initializer located in: `config/initializers/rack_profiler.rb`
+2. Comment the initialization line in this file.
+
+You can also configure a lot of settings for this gem, see the [redame](https://github.com/MiniProfiler/rack-mini-profiler#configuration-options) for more information.
 #### Flamegraph ([GITHUB PROJECT](https://github.com/brendangregg/FlameGraph))
 It is a stack trace visualizer for Ruby 2.0, flamegraph support is built into rack-mini-profiler, just require this gem and you should be good to go. you only need to add **?pp=flamegraph** at the end of your *query string*
 
@@ -297,20 +301,20 @@ Finally, in order to make all this magic work, you need to replace your traditio
 ```
 
 
-We are going to write a post for explaining Sassish in depth.
+TODO: We are planning on writing a blog post for explaining Sassish in depth, stay tuned!
 
 #### JAVASCRIPT LAND
-We have defined a way how to deal with our javascript code, first of all, we have included coffeescript in favor of the native approach (we still need investigate more about the new features on ES6 - you can find more information [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_6_support_in_Mozilla) and [here](https://github.com/lukehoban/es6features/blob/master/README.md)), However the main focus of our JS approach is not related with a metalenguage or a specific functionality itself, in fact our approach is pretty simple but it will save you a lot of time in the future.
+We have defined a way how to deal with our Javascript code, first of all, we have included Coffeescript in favor of writing plain Javascript (we still need investigate more about the new features on ES6 - you can find more information [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_6_support_in_Mozilla) and [here](https://github.com/lukehoban/es6features/blob/master/README.md)), However the main focus of our JS approach is not related with a metalenguage or a specific functionality itself, in fact our approach is pretty simple but it will save you a lot of time in the future.
 
-We propose that you should manage your javascript code using a master JS Object which is segmented according to your application domain through little components (as a part of the main object), each component will have a `setup` method convention for invoking its functionality from whichever site in your rails views (whenever you need it, of course).
+We propose that you manage your Javascript code using a master JS object which is segmented according to your application domain through small components (as a part of the master object), each component will have a `setup` method convention for invoking its functionality from whichever place in your rails views (whenever you need it, of course).
 
-This approach allows you to build a cleaner code facilitating its testing and growing. Then, you could integrate your own approach for segmenting the plane file itself (the file in which the master object is contained), you can also include something similar to [Gon](https://github.com/gazay/gon) gem for managing how the components are loaded, however,  for now,  we prefered leave the JS loading process as it is.
+This approach allows you to build a cleaner code facilitating its testing and maintainability. Then, you could integrate your own approach for segmenting the plain file itself (the file in which the master object is contained), you can also include something similar to [Gon](https://github.com/gazay/gon) gem for managing how the components are loaded, however,  for now, we prefer to leave the JS loading process as it is.
 
-Below code shows the current structure for the `main.js.coffee` file:
+The below code shows the current structure for the `main.js.coffee` file. We have used **RailsFoo** (the app's name) as the master object's name, but it can be anything you like) :
 
 ```coffee
 # app/assets/javascripts/main.js.coffee
-window.Foo = 
+window.RailsFoo = 
   welcome:
     setup: ->
       @sayHello()
@@ -320,77 +324,75 @@ window.Foo =
       return
 ```
 
-As you can see, there is a `welcome` component which includes two functions, one of them is the initialization function `setup` which is in charge of invoke all necessary functions in the welcome application domain, this function should be invoked only in the view in which the component is needed.
+As you can see, there is a `welcome` component (i.e. 'namespace') which includes two functions, one of them is the `setup` initialization function which is in charge of invoke all necessary functions in the welcome application domain, this function should be invoked only in the view in which the component is needed.
 
 ```haml
+-# app/views/welcome/index.haml
 .site-wrapper
   .site-wrapper-inner
-    .cover-container
-      .masthead.clearfix
-        .inner
-          %h3.masthead-brand= t(".generic")
-          %ul.nav.masthead-nav
-            %li.active
-              %a{:href => "#"}= t(".home")
-            %li
-              %a{:href => "#"}= t(".about_us")
-            %li
-              %a{:href => "#"}= t(".contact")
-      .inner.cover
-        %h1.cover-heading= t(".demo_application")
-        %p.lead= t(".demo_app_description")
-        %p.lead
-          %a.btn.btn-lg.btn-primary{:href => new_user_session_path}= t(".sign_in")
-      .mastfoot
-        .inner
-          %p
-            = t(".all_rights_reserved")
-            = succeed "," do
-              %a.test-auto-prefixer{:href => "#"}= t(".generic")
+... rest of the code here...
 
 / invoking the js welcome component for this specific view
+/ note that this is one line of plain javascript to invoke all the rest
 :javascript
   Foo.welcome.setup()
 ```
 
-Obviously, you are free to build your master JS object as you wish (with all namespaces and segmentation that you need), only keep in mind that your code must be according to the DRY philosophy.
+Obviously, you are free to build your master JS object as you wish (with all namespaces and segmentation that you need), only keep in mind that your code must be in line with the DRY philosophy. By the way, the namespacing or segmentation that you use is not necessarily "by-controller" (as we did with Sassish), it instead means javascript functionality that you need to put in the page to add a required dynamic behaviour (e.g. you could have a "shoppingCart" namespace).
 
 #### BOOTSTRAP INTEGRATION
-This template is integrated with the [Bootstrap](http://getbootstrap.com/) fremwork. You can find some configuration about the integration in the sprocket manifest files and in the `app/assets/stylesheets/bootstrap_and_overrides.css.less` file. Also, we have integrated the [simple_form](https://github.com/plataformatec/simple_form) gem, and we have wrapped it with a bootstrap configuration, you can see this here: `config/initializers/simple_form_bootstrap.rb`.
+This template is integrated with the [Bootstrap 3](http://getbootstrap.com/) framework. You can find some configuration about the integration in the sprocket manifest files and in the `app/assets/stylesheets/bootstrap_and_overrides.css.less` file. Also, we have integrated the [simple_form](https://github.com/plataformatec/simple_form) gem, and we have changed its wrappers' configuration to be the included bootstrap configuration, you can see this here: `config/initializers/simple_form_bootstrap.rb` (we left it as the default). If you wish, you can check a gem that may help you with bootstrap generators and templates for you to use [twitter-bootstrap-rails](https://github.com/seyhunak/twitter-bootstrap-rails). We did not include it, it's up to you.
 
 ### MISC (but not least important)
-#### ANALYTIC SCRIPTS
-One of the most important thing in this era is the data analysis process, you can achieve those metrics by using several existing tools ([Google Analytics](http://www.google.com/intl/en/analytics/), [Kissmetrics](https://kissmetrics.com/), [Piwik](http://piwik.org/), [Clicky](http://clicky.com/), [Woopra](https://www.woopra.com/), etc), however you need to pay much attention in including your scripts in the right place.
+#### ANALYTICS SCRIPTS
+One of the most important thing in this era is data analysis, you can get those metrics and data by using several existing tools ([Google Analytics](http://www.google.com/intl/en/analytics/), [Kissmetrics](https://kissmetrics.com/), [Piwik](http://piwik.org/), [Clicky](http://clicky.com/), [Woopra](https://www.woopra.com/), etc), however you really need to pay attention where you include your scripts, and to not forget about them. By the way, in order to better do stuff with tags, instead of just adding Google Analytics as usual, for example, give a try to [Google Tag Manager](http://www.google.com/tagmanager/), which let's you do this dynamically so that you don't need to alter your configuration in the code.
 
-For that reason, we have created a partial area for including all the scripts that you need for monitoring to your customers (yes, only a partial, there is nothing magical here), but bear in mind that this partial must be included in all existent layouts, because in the most of cases the analytics scripts need to be placed in all pages in which you want to monitoring. You can find this partial in `app/views/partials/_analytics_scripts.html.haml`.
+For that reason, we have created a partial folder for including all the scripts you need for monitoring your app (yes, only a partial, there is nothing magical going on here), but bear in mind that in order for the analytics scripts to do their work you must include them in all existent pages in our web application. By the way, you can find this partial in `app/views/partials/_analytics_scripts.html.haml`.
+
+But even with that, we wanted to avoid including this partial in all our views (because we could forget!), even in all our layouts, for that reason, we have applied an inheritance approach for managing our layouts, we have created a **root** layout (you can see this located in `app/views/layouts/root.html.haml`). The main idea is that you use the **root** layout as a parent for all your new layouts, this way, you can include the common structures (like the analytical scripts) inside the **root** layout and reuse them in all your child layouts, you can see an example for this implementation in `app/views/layouts/application.html.haml` and `app/views/layouts/welcome.html.haml` layouts. The way you should think about "layout inheritance" is that you just reuse as much as you can, so, same as following DRY.
   
 #### RAILS PANEL ([GITHUB REPO](https://github.com/dejan/rails_panel))
-**RailsPanel** is a Chrome extension for Rails development that will end your tailing of development.log. Have all information about your Rails app requests in the browser - in the Developer Tools panel. Provides insight to db/rendering/total times, parameter list, rendered views and more.
+**RailsPanel** is a Chrome extension for Rails development that will end your tailing of `development.log`. It hooks with you Chrome Dev Tools so that you have all information about your Rails app requests. Provides insight to db/rendering/total times, parameter list, rendered views and more.
 
 Although this gem is more useful for `Active record` than `Mongoid` it helps you with your logging metrics.
 #### SHOG ([GITHUB REPO](https://github.com/phallguy/shog))
 
-Make your rails 4.0 log details more colorful, we think that the readability is a most of important thing in the development process, this is also the same case for the logs, we could use **RailsPanel** or the [request-log-analyzer](https://github.com/wvanbergen/request-log-analyzer) gem (even though this is more related with ´ActiveRecord´) but we also could have a better way for seeing our logs in a console-based scenario, this is Shog! (you can configure it using its initializer located in`config/initializers/shog.rb`).
+Make your rails 4.0 log details more colorful, we think that readability is one of the most of important things in the development process, this is also the case for logs, we could use **RailsPanel** or the [request-log-analyzer](https://github.com/wvanbergen/request-log-analyzer) gem (even though this is more related with ´ActiveRecord´) but we  could also get a cleaner look at our logs in the console by using Shog! (you can configure it using its initializer located in`config/initializers/shog.rb`). Just do `rails server` as usual to see how colorful your logs are now.
 
 #### JUST ONE HELPER PER VIEW
-In  the past, I have had some problems with my helpers when my application begins to grow, essentially, it is difficult to achieve a helper hierarchy structure with the default rails helper approach. But we do not want to change the helper approach from rails, but at least, we want to guarantee that there is no place to ambiguities, for that reason we have included the following line `config.action_controller.include_all_helpers = false` in the `config/application.rb` file, it will avoid that in each request are loaded all existent helpers. at the end only the helper associated with the specific controller and the `ApplicationHelper` will be loaded
+In  the past, I have had some problems with my helpers when my application began to grow, essentially, it is difficult to achieve a helper hierarchy structure with the default Rails helper approach. But we do not want to change the way helpers work in Rails, but at least, to guarantee that there is no place for ambiguities, for that reason we have included the following line `config.action_controller.include_all_helpers = false` in the `config/application.rb` file, it will avoid loading all existent helpers on each request (as Rails usually does). At the end only the helper associated with the specific controller and the `ApplicationHelper` will be loaded (Sassish-style again, but with helpers).
 
 #### SERVICE OBJECT
-Sometimes we wonder about what would be the best place for our domain logic, we are afraid for having fat controllers, but having fat models are not a solution neither. We need to focus in what are the best practices for refactoring or building our code, and you can find excellent posts about this (I like [this one](http://blog.codeclimate.com/blog/2012/10/17/7-ways-to-decompose-fat-activerecord-models/)). However, I want to focus in the **Service Object** approach. This approach will avoid you many problems in the future and will allow you apply the [SRP](https://en.wikipedia.org/wiki/Single_responsibility_principle) with ease.
+Sometimes we wonder about what would be the best place for our domain logic, we are afraid for having fat controllers, but having fat models are not a solution either. We need to focus in what are the best practices for refactoring or building our code, and you can find excellent posts about this (I like [this one](http://blog.codeclimate.com/blog/2012/10/17/7-ways-to-decompose-fat-activerecord-models/)). However, I want to focus in the **Service Object** approach. This approach will help you avoid many problems in the future and will allow you to apply the [SRP](https://en.wikipedia.org/wiki/Single_responsibility_principle) with ease.
 
-You can also find many posts and *casts about this topic (like [this](https://netguru.co/blog/service-objects-in-rails-will-help) and [this](https://blog.engineyard.com/2014/keeping-your-rails-controllers-dry-with-services)), but I like much this [post](http://adamniedzielski.github.io/blog/2014/11/25/my-take-on-services-in-rails/). it exposes a pretty simple way for adopting the service object philosophy. I would like to emphasize the following aspects from it:
+You can also find many online resources (posts, guides, tutorials, screencasts, etc.) about this topic (like [this](https://netguru.co/blog/service-objects-in-rails-will-help) and [this](https://blog.engineyard.com/2014/keeping-your-rails-controllers-dry-with-services)), but I like much this [post](http://adamniedzielski.github.io/blog/2014/11/25/my-take-on-services-in-rails/) as it exposes a pretty simple way for adopting the service object philosophy. I would like to emphasize the following aspects from it:
 
-- Naming: the service object name is a verb phrase, because it denotes an action which is associated with a single responsability. Semantically it is easier to handle regarding its invocation and portability.
-- Invoking: use a public method named **call**, “Lambda also responds to call so in your tests you have the possibility to mock service with lambda, which is quite convenient”.
-- Structuring & Organization: a folder named **services** at the same of the **models** folder, you can also integrate in your structure a namespacing approach based on both modules and classes.
-- Dependency Injection: having a service with many responsibilities is a signal that you need split it, but you can always use the **dependency injection**  for providing a full isolation support inside each existent service object.
+- Naming: the service object name is a **non-finite verb phrase** (wth?-> [see here](https://en.wikipedia.org/wiki/Verb_phrase)), because it denotes an action which is associated with a single responsability. Semantically it is easier to handle regarding its invocation and portability.
+- Invoking: use a public method named **call**, “Lambdas and Procs also respond to `call` so in your tests you have the possibility to mock the service with a simple `Lambda`, which is quite convenient”.
+- Structuring & Organization: a folder named **services** at the same level of the **models** folder. You can also follow the same namespacing conventions using modules and classes as commonly used in Rails (code reloads too).
+- Dependency Injection: having a service with many responsibilities is a signal that you need to split it, but you can always use the **dependency injection** principle for fully isolating each service object.
 
 ## IN CLOSING
-We have included many useful gems and tools in order to improve our both development and environment scenarios according to our needs and experiences, however, you always can disable whatever thing you wish or add more things, this is our base and and it will follow in evolution.
-
+We have included many useful gems and tools in order to improve both our development environment and app quality according to our needs and experience, however, you can always disable whatever thing you wish or add more things, this is our starting base and it will continue evolving.
 ## CONTRIBUTORS
+
 <ul>
   <li><a href="https://github.com/johaned">Johan Tique</a></li>
   <li><a href="https://github.com/gato-omega">Miguel Diaz</a></li>
 </ul>
+
+## NOTES
+
+If you want/need to migrate this template to use `ActiveRecord` instead of `MongoID` please remember to include the following (these do not support or not apply to be used with MongoID):
+
+- lol_dba
+- request-log-analyzer
+- annotate_models
+
+Also for newer versions consider adding:
+
+- jazz_fingers
+- rack-attack
+
+This template was heaviliy inspired by looking into ALL the categories from [Awesome Ruby](http://awesome-ruby.com/) the last revision for this was on July 2015, preserve its freshness by having a look every now and then (e.g. each time you create an app?) :).
 

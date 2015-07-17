@@ -49,7 +49,7 @@ group :development do
   # For supporting flamegraph without errors
   # see here: https://github.com/SamSaffron/flamegraph/blob/master/lib/flamegraph.rb#L5
   gem 'stackprof'
-  gem 'rack-mini-profiler'
+  gem 'rack-mini-profiler', require: false
   gem 'flamegraph'
   # gems for inspecting code qualitty
   gem 'i18n-tasks', '~> 0.7.12'
