@@ -86,7 +86,7 @@ Is a security feature that lets a web site tell browsers that it should only be 
 - Opera: 12
 - Safari: 7
 
-see more info here:
+Optional: Learn more about HTTP Strict Transport Security here:
 https://goo.gl/ldjc5h
 
 ##### Content Security Policy
@@ -100,7 +100,7 @@ Is an added layer of security that helps to detect and mitigate certain types of
 - Opera: 15
 - Safari: 7
 
-see more info here:
+Optional: Learn more about Content Security Policy here:
 https://goo.gl/u23dit
 | https://goo.gl/wHC9C5
 | https://goo.gl/Z8UvAz
@@ -118,10 +118,13 @@ The Public Key Pinning Extension for HTTP (HPKP) is a security feature that tell
 
 *Server Compatibility*
 
-- NGNIX: adding the following line and inserting the appropriate pin-sha256="..." values will enable HPKP on your nginx. This requires the `ngx_http_headers_module` to be installed on your nginx installation.
+- NGINX: adding the following line and inserting the appropriate pin-sha256="..." values will enable HPKP on your nginx. This requires the `ngx_http_headers_module` to be installed on your nginx installation (it should be installed by default, as it is a standard nginx module). See more details for this module here: http://nginx.org/en/docs/http/ngx_http_headers_module.html.
+
 - Apache: adding a line similar to the following to your web server's config will enable HPKP on your Apache. This requires the `mod_headers` module enabled.
 
-see more info here:
+**Important Note**: If you enable the HPKP feature, you **MUST** enable the server side modules for this too, because if not, you will not be able to connect to the server.
+
+Optional: learn more about the details of HPKP here:
 https://goo.gl/yrx3ex
 | http://goo.gl/zFnaaW
 ### CONFIG
@@ -135,11 +138,11 @@ Finally, these are our conclusions about the selected approach:
 
 - In order to be compliant with the [config section](http://12factor.net/config) in the [twelve factor app](http://12factor.net/) methodology, we can also use environment variables (ENV) whenever necessary. `config/secrets.yml` as other YAML files in Rails is passed first through ERB, this behaviour gives us the chance to set our ENV using `dotenv` which allows us to load environment variables from an `.env` file into ENV in the configured environment.
 
-- Keeping an easy deployment is a priority, and it is clear that using an ENV approach seems to cover this concern, but you can obtain the benefits of an hybrid solution by using a rich object support and ENV approach. Our experience has taught us that the sensitive data and the external integration credentials is a real concern for both the staging and production environments (especially for scenarios with limited control as Heroku), however you can manage this responsibility with ease, in your own servers you always can use capistrano (or similar solutions) for automating the remote installation (`secrets.yml`) for every application server (this process is still missing in this template, but in the future it will be included). On the other hand, you can also configure your application so that it’s compliant with Heroku.
+- Keeping an easy deployment is a priority, and it is clear that using an ENV approach seems to cover this concern, but you can obtain the benefits of an hybrid solution by using a rich object support and ENV approach. Our experience has taught us that the sensitive data and the external integration credentials is a real concern for both the staging and production environments (especially for scenarios with limited control as Heroku), however you can manage this responsibility with ease, in your own servers you always can use capistrano (or similar solutions) for automating the remote installation of the `secrets.yml` file in each application server. On the other hand, you can also configure your application so that it’s compliant with Heroku. This template does not come bundled with capistrano or anything so you can choose what to do, but we recommend that you stick with the ["Store config in the environment" premise on 12factor](http://12factor.net/config).
 
-To configure this template for a standard Heroku deployment, you just have to add/uncomment a little deployment hack that you can see this at the end of `config/application.rb` file (remember that the secrets file is gitignored).
+To configure this template for a standard Heroku deployment, you just have to add/uncomment a little deployment hack that you can see at the end of `config/application.rb` file (remember that the `secrets.yml` file is gitignored) in order to copy the example files that come with environment variable fetching inside of them via erb.
 
-- One of the most important things in our context is ‘convention over configuration’, and **secrets** is the default approach (and convention) for managing the sensitive info in the Rails community (although we really think a better name would be "app_config").
+- One of the most important things in our context is ‘convention over configuration’, and **secrets** is the default approach (and convention) for managing sensitive information in the Rails community (although we really think a better name would be "app_config").
 
 - Secure defaults, the new convention has agreed that the `secret_key_base` (used to verify the integrity of signed cookies) will be stored in the **secrets** file, you can see more info [here](http://guides.rubyonrails.org/upgrading_ruby_on_rails.html#config-secrets-yml) and [here](http://stackoverflow.com/questions/25426940/what-is-the-use-of-secret-key-base-in-rails-4)
 
@@ -230,7 +233,7 @@ RubyCritic is a gem that wraps around static analysis gems such as [Reek](https:
 It is a code metric tool to check the quality of Rails code. It is a little old fashioned but it could help you with some metrics that are not visible to the others analysers (Rubocop, Rubycritic).
 
 #### Inch ([GITHUB REPO](https://github.com/rrrene/inch))
-A documentation measurement tool for Ruby, based on YARD. you can generate several documentation reports for your code documentation, execute this code inspection by using the `$ inch` command, however you can also use other options like: `$ inch stats` `$ inch lists` `$ inch suggest` for obtaining a most complete information. You can see a quick start guide [here](http://trivelop.de/inch/).
+A documentation measurement tool for Ruby, based on YARD. you can generate several documentation reports for your code documentation, execute this code inspection by using the `$ inch` command, however you can also use other options like: `$ inch stats` `$ inch lists` `$ inch suggest` for obtaining a most complete information. You can see a quick 'getting started' guide [here](http://trivelop.de/inch/).
 
 #### Bullet ([GITHUB REPO](https://github.com/flyerhzm/bullet))
 Bullet helps you to kill N+1 queries and unused eager loading, it will run each time that you execute any request on your web server, you can see either a javascript alert (you can also disable it) or a little report in the logs (or both of them) when a new related issue is found. You can find the config block in the `config/environment/development.rb` file.
@@ -238,10 +241,10 @@ Bullet helps you to kill N+1 queries and unused eager loading, it will run each 
 #### Shortcuts
 We are using [Guard](https://github.com/guard/guard) for automating the inspection of code changes. Guard is a command line tool to easily handle events on file system modifications. We have integrated Guard with Inch, Rubycritic and Rubocop. If you want to execute this process you can run the `$ guard` command in the root project path.
 
-If you do not want have a process for the monitoring stuff, you can run this task `$ rake code_quality:inspect` for running both Rubycritic, Rail Best Practices and Rubocop inspections by yourself.
+If you do not want have a process for monitoring and doing this stuff all the time for you, you can run `$ rake code_quality:check` for running Rubycritic, Rail Best Practices, Inch and Rubocop inspections all at once whenever you want.
 
 ### PERFORMANCE
-Improving our application’s performance is really a critic stuff, in the previous section (**CODE QUALITY**) we have included the **Bullet** gem, you can use it for improving the performance a lot. However, we have included other gems which are very useful for tracking your load times as well.
+Improving our application’s performance is a very important thing, in the previous section (**CODE QUALITY**) we have included the **Bullet** gem, you can use it for improving the performance a lot. However, we have included other gems which are very useful for tracking your load times as well.
 
 #### Rack Mini Profiler ([GITHUB PROJECT](https://github.com/MiniProfiler/rack-mini-profiler))
 It is a middleware that displays speed badge for every html page. Designed to work both in production and in development (it is configured in the development environment by default). If you experiment some problems with the caching behaviour you can see this [section](https://github.com/MiniProfiler/rack-mini-profiler#caching-behavior). On the other hand, it could become annoying, so you can disable it by following these instructions:
@@ -395,7 +398,7 @@ As you can see, there is a `welcome` component (i.e. 'namespace') which includes
 / invoking the js welcome component for this specific view
 / note that this is one line of plain javascript to invoke all the rest
 :javascript
-  Foo.welcome.setup()
+  RailsFoo.welcome.setup()
 ```
 
 Obviously, you are free to build your master JS object as you wish (with all namespaces and segmentation that you need), only keep in mind that your code must be in line with the DRY philosophy. By the way, the namespacing or segmentation that you use is not necessarily "by-controller" (as we did with Sassish), it instead means javascript functionality that you need to put in the page to add a required dynamic behaviour (e.g. you could have a "shoppingCart" namespace).
@@ -447,6 +450,7 @@ If you want/need to migrate this template to use `ActiveRecord` instead of `Mong
 
 - lol_dba
 - request-log-analyzer
+- [rails5 ActiveRecord colored SQL log backport](https://github.com/customink/activerecord-colored_log_subscriber)
 - annotate_models
 
 Also for newer versions consider adding:
