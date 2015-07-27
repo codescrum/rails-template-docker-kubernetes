@@ -12,7 +12,7 @@ The following versions are very important to keep in mind. We've done this becau
 
   - Mongoid 4.0.2
 
-Also this template uses [Zeus gem](https://github.com/burke/zeus) which preloads your Rails app so that your normal development tasks such as console, server, generate, and specs/tests take less than one second.
+Also this template uses [Zeus](https://github.com/burke/zeus) which preloads your Rails app so that your normal development tasks such as console, server, generate, and specs/tests take less than one second.
 
 You can configure Zeus' settings using the `zeus.json` file located in your Rails root path.
 
@@ -49,6 +49,21 @@ Running Specs
   $ zeus rspec spec
 ```
 
+### HEROKU INSTALL
+
+1. Set the SECRET_KEY_BASE environment variable (you can generate this using the `rake secret`, it will output a generated token for you, just copy/paste)
+
+```sh
+  heroku config:set SECRET_KEY_BASE=a25...2cefa
+```
+
+2. Install the Mongoid addon (we’ve selected the free option - MongoLab)
+
+```sh
+  heroku addons:create mongolab:sandbox
+```
+
+3. Uncomment the heroku deployment hack located at the end of the `config/application.rb` file
 ## TECH EXPLANATIONS
 
 ### SECURITY
@@ -423,7 +438,7 @@ Although this gem is more useful for `Active record` than `Mongoid` it helps you
 Make your rails 4.0 log details more colorful, we think that readability is one of the most of important things in the development process, this is also the case for logs, we could use **RailsPanel** or the [request-log-analyzer](https://github.com/wvanbergen/request-log-analyzer) gem (even though this is more related with ´ActiveRecord´) but we  could also get a cleaner look at our logs in the console by using Shog! (you can configure it using its initializer located in`config/initializers/shog.rb`). Just do `rails server` as usual to see how colorful your logs are now.
 
 #### JUST ONE HELPER PER VIEW
-In  the past, I have had some problems with my helpers when my application began to grow, essentially, it is difficult to achieve a helper hierarchy structure with the default Rails helper approach. But we do not want to change the way helpers work in Rails, but at least, to guarantee that there is no place for ambiguities, for that reason we have included the following line `config.action_controller.include_all_helpers = false` in the `config/application.rb` file, it will avoid loading all existent helpers on each request (as Rails usually does). At the end only the helper associated with the specific controller and the `ApplicationHelper` will be loaded (Sassish-style again, but with helpers).
+In  the past, we have had some problems with my helpers when my application began to grow, essentially, it is difficult to achieve a helper hierarchy structure with the default Rails helper approach. But we do not want to change the way helpers work in Rails, but at least, to guarantee that there is no place for ambiguities, for that reason we have included the following line `config.action_controller.include_all_helpers = false` in the `config/application.rb` file, it will avoid loading all existent helpers on each request (as Rails usually does). At the end only the helper associated with the specific controller and the `ApplicationHelper` will be loaded (Sassish-style again, but with helpers).
 
 #### SERVICE OBJECT
 Sometimes we wonder about what would be the best place for our domain logic, we are afraid for having fat controllers, but having fat models are not a solution either. We need to focus in what are the best practices for refactoring or building our code, and you can find excellent posts about this (I like [this one](http://blog.codeclimate.com/blog/2012/10/17/7-ways-to-decompose-fat-activerecord-models/)). However, I want to focus in the **Service Object** approach. This approach will help you avoid many problems in the future and will allow you to apply the [SRP](https://en.wikipedia.org/wiki/Single_responsibility_principle) with ease.
@@ -458,5 +473,5 @@ Also for newer versions consider adding:
 - jazz_fingers
 - rack-attack
 
-This template was heaviliy inspired by looking into ALL the categories from [Awesome Ruby](http://awesome-ruby.com/) the last revision for this was on July 2015, preserve its freshness by having a look every now and then (e.g. each time you create an app?) :).
+This template was heaviliy inspired by looking into ALL the categories from [Awesome Ruby](http://awesome-ruby.com/) the last revision for this was on July 2015, preserve its freshness by having a look every now and then (e.g. each time you create an app?) :+1:.
 
