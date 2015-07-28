@@ -51,19 +51,20 @@ Running Specs
 
 ### HEROKU INSTALL
 
-1. Set the SECRET_KEY_BASE environment variable (you can generate this using the `rake secret`, it will output a generated token for you, just copy/paste)
+* Set the SECRET_KEY_BASE environment variable (you can generate this using the `rake secret`, it will output a generated token for you, just copy/paste)
 
 ```sh
   heroku config:set SECRET_KEY_BASE=a25...2cefa
 ```
 
-2. Install the Mongoid addon (we’ve selected the free option - MongoLab)
+* Install the Mongoid addon (we’ve selected the free option - MongoLab)
 
 ```sh
   heroku addons:create mongolab:sandbox
 ```
 
-3. Uncomment the heroku deployment hack located at the end of the `config/application.rb` file
+* Uncomment the heroku deployment hack located at the end of the `config/application.rb` file
+
 ## TECH EXPLANATIONS
 
 ### SECURITY
