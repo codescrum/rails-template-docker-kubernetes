@@ -5,6 +5,7 @@ webapp:
     - .:/myapp
   links:
     - db
+    - redis
   env_file: .env
   environment:
     RACK_ENV: production
@@ -19,3 +20,14 @@ proxy:
     - "80:80"
   volumes:
     - "/var/run/docker.sock:/tmp/docker.sock"
+redis:
+  image: redis
+worker:
+  build: .
+  command: bundle exec sidekiq -e production -c 5
+  env_file: .env
+  environment:
+    RAILS_ENV: production
+  links:
+    - db
+    - redis
