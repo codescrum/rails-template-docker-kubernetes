@@ -39,16 +39,16 @@ end
 # Require Sassish
 require File.expand_path(File.join('..', '..', 'lib', 'sassish', 'sassish.rb'), __FILE__)
 
-###### Heroku deployment hack ######
+###### Heroku/Docker deployment hack ######
 # copy mongoid config example file into 'real' file
-# if Rails.env.production? || Rails.env.staging?
-#   config_root = File.join(Rails.root, 'config')
-#   # Mongoid Config File
-#   mongoid_example_path = File.join(config_root, 'mongoid.yml.example')
-#   mongoid_real_path = File.join(config_root, 'mongoid.yml')
-#   `cp #{mongoid_example_path} #{mongoid_real_path}`
-#   # Secrets File
-#   secrets_example_path = File.join(config_root, 'secrets.yml.example')
-#   secrets_real_path = File.join(config_root, 'secrets.yml')
-#   `cp #{secrets_example_path} #{secrets_real_path}`
-# end
+if Rails.env.production? || Rails.env.staging?
+  config_root = File.join(Rails.root, 'config')
+  # Mongoid Config File
+  mongoid_example_path = File.join(config_root, 'mongoid.yml.example')
+  mongoid_real_path = File.join(config_root, 'mongoid.yml')
+  `cp #{mongoid_example_path} #{mongoid_real_path}`
+  # Secrets File
+  secrets_example_path = File.join(config_root, 'secrets.yml.example')
+  secrets_real_path = File.join(config_root, 'secrets.yml')
+  `cp #{secrets_example_path} #{secrets_real_path}`
+end
