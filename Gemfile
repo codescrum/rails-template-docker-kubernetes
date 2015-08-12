@@ -36,6 +36,7 @@ gem 'will_paginate_mongoid'
 gem 'cancancan', '~> 1.10.1'
 gem 'secure_headers'
 gem 'autoprefixer-rails'
+gem 'sidekiq', '~> 3.1.4'
 
 
 group :development do
