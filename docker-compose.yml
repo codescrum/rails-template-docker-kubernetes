@@ -1,0 +1,21 @@
+webapp:
+  build: .
+  command: bundle exec unicorn -E production -c config/unicorn.rb
+  volumes:
+    - .:/myapp
+  links:
+    - db
+  env_file: .env
+  environment:
+    RACK_ENV: production
+    RAILS_ENV: production
+    VIRTUAL_HOST: rails-template.docker
+db:
+  image: mongo:3.0
+  command: mongod --smallfiles --quiet
+proxy:
+  image: jwilder/nginx-proxy:latest
+  ports:
+    - "80:80"
+  volumes:
+    - "/var/run/docker.sock:/tmp/docker.sock"
