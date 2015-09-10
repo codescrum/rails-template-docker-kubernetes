@@ -11,6 +11,8 @@ webapp:
     RACK_ENV: production
     RAILS_ENV: production
     VIRTUAL_HOST: rails-template.docker
+  ports:
+    - "8080:8080"
 db:
   image: mongo:3.0
   command: mongod --smallfiles --quiet
