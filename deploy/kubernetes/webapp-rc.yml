@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  labels:
+    name: webapp
+  name: webapp-controller
+spec:
+  replicas: 1
+  selector:
+    name: webapp
+  template:
+    metadata:
+      labels:
+        name: webapp
+    spec:
+      containers:
+        - image: railstemplate_webapp
+          command: ["bundle", "exec", "unicorn", "-E production -c config/unicorn.rb"]
+          env:
+            - name: VIRTUAL_HOST
+              value: rails-template.docker
+            - name: SECRET_KEY_BASE
+              value: 560ea30c110b0ce9112b248441bde2e74d3d5120898894f1aef3202c63e9a3423f400cdd73dc58f7d71251fa0d991df3da671bba0f840521e3e48f55e299e11d
+            - name: RACK_ENV
+              value: production
+            - name: RAILS_ENV
+              value: production
+          name: webapp
+          ports:
+            - containerPort: 8080
+              name: http-server
+          volumeMounts:
+          - mountPath: /files
+            name: files-volume
+      volumes:
+        - name: files-volume
+          emptyDir: {}
